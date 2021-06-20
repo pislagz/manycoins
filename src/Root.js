@@ -93,7 +93,8 @@ export default class Root extends Component {
 
 const Table = styled.table`
   border-collapse: collapse;
-  min-width: 400px;
+  /* min-width: 400px; */
+  width: 100%;
 
   thead {
     background: #f4f4f4;
