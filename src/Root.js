@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import GlobalStyle from "./styles/GlobalStyle";
 
 export default class Root extends Component {
   constructor(props) {
@@ -36,13 +37,16 @@ export default class Root extends Component {
   render() {
     return (
       <div className="root">
+        <GlobalStyle />
         <Table>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Short</th>
-            <th>Price</th>
-          </tr>
+          <thead>
+            <tr>
+              <TitleRank>Rank</TitleRank>
+              <TitleName>Name</TitleName>
+              <TitlePrice>Price</TitlePrice>
+              <Title24Rate>24h %</Title24Rate>
+            </tr>
+          </thead>
           {this.state.isLoading ? (
             <tbody>
               <tr>
@@ -55,9 +59,27 @@ export default class Root extends Component {
                 <tbody key={item.rank}>
                   <Row>
                     <CoinRank>{item.rank}</CoinRank>
-                    <CoinName>{item.name}</CoinName>
-                    <CoinTag>{item.symbol}</CoinTag>
-                    <CoinValue>${Number(item.priceUsd).toFixed(2)}</CoinValue>
+                    <CoinName>
+                      <ItemName>{item.name}</ItemName>{" "}
+                      <ItemSymbol>{item.symbol}</ItemSymbol>
+                    </CoinName>
+                    <CoinValue>
+                      $
+                      {Number(item.priceUsd).toLocaleString("en-US", {
+                        maximumFractionDigits: 2,
+                        minimumFractionDigits: 2,
+                      })}
+                    </CoinValue>
+                    <CoinRate
+                      style={{
+                        color:
+                          Number(item.changePercent24Hr) >= 0
+                            ? "#13b016"
+                            : "#d6230f",
+                      }}
+                    >
+                      {Number(item.changePercent24Hr).toFixed(2)}%
+                    </CoinRate>
                   </Row>
                 </tbody>
               );
@@ -70,15 +92,66 @@ export default class Root extends Component {
 }
 
 const Table = styled.table`
-  width: 100%;
-`;
+  border-collapse: collapse;
+  min-width: 400px;
 
-const Row = styled.tr`
-  &:nth-child(even) {
-    background-color: #f2f2f2;
+  thead {
+    background: #f4f4f4;
+    tr {
+      text-align: right;
+      font-weight: bold;
+    }
+  }
+
+  th,
+  td {
+    padding: 0.8rem 1.1rem;
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid #dddddd;
+      &:hover {
+        background: #f5f5f5;
+        span:first-of-type {
+          font-weight: bold;
+        }
+      }
+    }
   }
 `;
-const CoinRank = styled.td``;
+
+const TitleRank = styled.th`
+  text-align: center;
+`;
+const TitleName = styled.th`
+  text-align: left;
+`;
+const TitlePrice = styled.th``;
+
+const Title24Rate = styled.th`
+  text-align: right;
+`;
+
+const Row = styled.tr``;
+
+const CoinRank = styled.td`
+  text-align: center;
+`;
+
 const CoinName = styled.td``;
-const CoinTag = styled.td``;
-const CoinValue = styled.td``;
+
+const CoinValue = styled.td`
+  text-align: right;
+`;
+const CoinRate = styled.td`
+  text-align: right;
+`;
+
+const ItemName = styled.span`
+  font-size: 1.1rem;
+`;
+const ItemSymbol = styled.span`
+  font-weight: 300;
+  font-style: italic;
+`;
