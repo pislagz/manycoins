@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import GlobalStyle from "./styles/GlobalStyle";
+import checkImg from "./utils/functions";
 
 export default class Root extends Component {
   constructor(props) {
@@ -60,8 +61,19 @@ export default class Root extends Component {
                   <Row>
                     <CoinRank>{item.rank}</CoinRank>
                     <CoinName>
-                      <ItemName>{item.name}</ItemName>{" "}
-                      <ItemSymbol>{item.symbol}</ItemSymbol>
+                      <ItemIcon
+                        src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`}
+                        onError={(e) => {
+                          e.target.onError = null;
+                          e.target.src =
+                            "https://coincap.io/static/logo_mark.png";
+                        }}
+                      />
+                      <ItemNameWrapper>
+                        <ItemName>{item.name}</ItemName>
+                        <br></br>
+                        <ItemSymbol>{item.symbol}</ItemSymbol>
+                      </ItemNameWrapper>
                     </CoinName>
                     <CoinValue>
                       $
@@ -73,7 +85,7 @@ export default class Root extends Component {
                     <CoinRate
                       style={{
                         color:
-                          Number(item.changePercent24Hr) >= 0
+                          Number(item.changePercent24Hr) > 0
                             ? "#13b016"
                             : "#d6230f",
                       }}
@@ -94,10 +106,12 @@ export default class Root extends Component {
 const Table = styled.table`
   border-collapse: collapse;
   /* min-width: 400px; */
-  width: 100%;
+  width: 50%;
+  margin: 0 auto;
 
   thead {
     background: #f4f4f4;
+    border-bottom: 1px solid #bababa;
     tr {
       text-align: right;
       font-weight: bold;
@@ -115,7 +129,7 @@ const Table = styled.table`
       &:hover {
         background: #f5f5f5;
         span:first-of-type {
-          font-weight: bold;
+          font-weight: 500;
         }
       }
     }
@@ -134,13 +148,18 @@ const Title24Rate = styled.th`
   text-align: right;
 `;
 
-const Row = styled.tr``;
+const Row = styled.tr`
+  cursor: pointer;
+`;
 
 const CoinRank = styled.td`
   text-align: center;
 `;
 
-const CoinName = styled.td``;
+const CoinName = styled.td`
+  text-align: center;
+  display: flex;
+`;
 
 const CoinValue = styled.td`
   text-align: right;
@@ -149,10 +168,28 @@ const CoinRate = styled.td`
   text-align: right;
 `;
 
+const ItemIcon = styled.img`
+  align-self: center;
+  height: 1.8rem;
+  width: 1.8rem;
+  margin-right: 1rem;
+`;
+
 const ItemName = styled.span`
   font-size: 1.1rem;
 `;
 const ItemSymbol = styled.span`
   font-weight: 300;
   font-style: italic;
+`;
+
+const ItemNameWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  &:hover {
+    span {
+      text-decoration: underline;
+    }
+  }
 `;
