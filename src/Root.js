@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import GlobalStyle from "./styles/GlobalStyle";
-import checkImg from "./utils/functions";
+import { MONEY_FORMAT } from "./utils/utilityFunctions";
 
 export default class Root extends Component {
   constructor(props) {
@@ -42,10 +42,13 @@ export default class Root extends Component {
         <Table>
           <thead>
             <tr>
-              <TitleRank>Rank</TitleRank>
+              <TitleRank className={"collapsing"}>Rank</TitleRank>
               <TitleName>Name</TitleName>
               <TitlePrice>Price</TitlePrice>
               <Title24Rate>24h %</Title24Rate>
+              <TitleMarketCap className={"data-right"}>
+                Market Cap
+              </TitleMarketCap>
             </tr>
           </thead>
           {this.state.isLoading ? (
@@ -59,30 +62,30 @@ export default class Root extends Component {
               return (
                 <tbody key={item.rank}>
                   <Row>
-                    <CoinRank>{item.rank}</CoinRank>
+                    <CoinRank className={"collapsing"}>{item.rank}</CoinRank>
                     <CoinName>
                       <ItemIcon
-                        src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`}
+                        src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`} // icon url as a template literal
                         onError={(e) => {
                           e.target.onError = null;
                           e.target.src =
-                            "https://coincap.io/static/logo_mark.png";
+                            "https://coincap.io/static/logo_mark.png"; // fallback url if there's no icon in coincap database
                         }}
                       />
                       <ItemNameWrapper>
                         <ItemName>{item.name}</ItemName>
-                        <br></br>
                         <ItemSymbol>{item.symbol}</ItemSymbol>
                       </ItemNameWrapper>
                     </CoinName>
-                    <CoinValue>
+                    <CoinValue className={"data-right"}>
                       $
                       {Number(item.priceUsd).toLocaleString("en-US", {
                         maximumFractionDigits: 2,
                         minimumFractionDigits: 2,
                       })}
                     </CoinValue>
-                    <CoinRate
+                    <Coin24Rate
+                      className={"data-right"}
                       style={{
                         color:
                           Number(item.changePercent24Hr) > 0
@@ -91,7 +94,8 @@ export default class Root extends Component {
                       }}
                     >
                       {Number(item.changePercent24Hr).toFixed(2)}%
-                    </CoinRate>
+                    </Coin24Rate>
+                    <MarketCap>{MONEY_FORMAT(item.marketCapUsd)}</MarketCap>
                   </Row>
                 </tbody>
               );
@@ -105,8 +109,7 @@ export default class Root extends Component {
 
 const Table = styled.table`
   border-collapse: collapse;
-  /* min-width: 400px; */
-  width: 50%;
+  width: 100%;
   margin: 0 auto;
 
   thead {
@@ -138,15 +141,22 @@ const Table = styled.table`
 
 const TitleRank = styled.th`
   text-align: center;
+  width: 5%;
 `;
 const TitleName = styled.th`
   text-align: left;
+  width: 45%;
 `;
-const TitlePrice = styled.th``;
+const TitlePrice = styled.th`
+  width: 45%;
+`;
 
 const Title24Rate = styled.th`
   text-align: right;
+  width: 5%;
 `;
+
+const TitleMarketCap = styled.th``;
 
 const Row = styled.tr`
   cursor: pointer;
@@ -161,12 +171,9 @@ const CoinName = styled.td`
   display: flex;
 `;
 
-const CoinValue = styled.td`
-  text-align: right;
-`;
-const CoinRate = styled.td`
-  text-align: right;
-`;
+const CoinValue = styled.td``;
+const Coin24Rate = styled.td``;
+const MarketCap = styled.td``;
 
 const ItemIcon = styled.img`
   align-self: center;
@@ -187,6 +194,9 @@ const ItemNameWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  span {
+    text-align: left;
+  }
   &:hover {
     span {
       text-decoration: underline;
