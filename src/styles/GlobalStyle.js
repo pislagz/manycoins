@@ -14,11 +14,15 @@ body{
 
 }
 
+tbody:nth-of-type(even) {
+    background-color: #fafafa;
+}
+
 .data-right {
     text-align: right;
 }
 
-@media only screen and (max-width: 500px) { 
+@media only screen and (max-width: 770px) { 
     .collapsing {
         display: none;
     }
