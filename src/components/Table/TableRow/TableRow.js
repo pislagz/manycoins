@@ -5,42 +5,40 @@ import { MONEY_FORMAT } from "../../../utils/utilityFunctions";
 export function TableRow(props) {
   return props.items.map((item) => {
     return (
-      <tbody key={item.rank}>
-        <Row>
-          <CoinRank className={"collapsing"}>{item.rank}</CoinRank>
-          <CoinName>
-            <ItemIcon
-              src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`} // icon url as a template literal
-              onError={(e) => {
-                e.target.onError = null;
-                e.target.src = "https://coincap.io/static/logo_mark.png"; // fallback url if there's no icon in coincap database
-              }}
-            />
-            <ItemNameWrapper>
-              <ItemName>{item.name}</ItemName>
-              <ItemSymbol>{item.symbol}</ItemSymbol>
-            </ItemNameWrapper>
-          </CoinName>
-          <CoinValue className={"data-right"}>
-            $
-            {Number(item.priceUsd).toLocaleString("en-US", {
-              maximumFractionDigits: 2,
-              minimumFractionDigits: 2,
-            })}
-          </CoinValue>
-          <Coin24Rate
-            className={"data-right"}
-            style={{
-              color: Number(item.changePercent24Hr) > 0 ? "#13b016" : "#d6230f",
+      <Row key={`${item.rank}-${item.id}`}>
+        <CoinRank className={"collapsing"}>{item.rank}</CoinRank>
+        <CoinName>
+          <ItemIcon
+            src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`} // icon url as a template literal
+            onError={(e) => {
+              e.target.onError = null;
+              e.target.src = "https://coincap.io/static/logo_mark.png"; // fallback url if there's no icon in coincap database
             }}
-          >
-            {Number(item.changePercent24Hr).toFixed(2)}%
-          </Coin24Rate>
-          <MarketCap className={"collapsing"}>
-            {MONEY_FORMAT(item.marketCapUsd)}
-          </MarketCap>
-        </Row>
-      </tbody>
+          />
+          <ItemNameWrapper>
+            <ItemName>{item.name}</ItemName>
+            <ItemSymbol>{item.symbol}</ItemSymbol>
+          </ItemNameWrapper>
+        </CoinName>
+        <CoinValue className={"data-right"}>
+          $
+          {Number(item.priceUsd).toLocaleString("en-US", {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })}
+        </CoinValue>
+        <Coin24Rate
+          className={"data-right"}
+          style={{
+            color: Number(item.changePercent24Hr) > 0 ? "#13b016" : "#d6230f",
+          }}
+        >
+          {Number(item.changePercent24Hr).toFixed(2)}%
+        </Coin24Rate>
+        <MarketCap className={"collapsing"}>
+          {MONEY_FORMAT(item.marketCapUsd)}
+        </MarketCap>
+      </Row>
     );
   });
 }

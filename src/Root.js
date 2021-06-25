@@ -13,10 +13,9 @@ export default class Root extends Component {
 
   getItems = async (API_LINK, BODY) => {
     try {
-      let response = await fetch(API_LINK, BODY);
-      response = await response.json();
-
+      let response = await (await fetch(API_LINK, BODY)).json();
       console.log(response);
+
       this.setState({ items: response.data, isLoading: false });
     } catch (err) {
       console.log(err);
@@ -31,7 +30,16 @@ export default class Root extends Component {
       };
     };
 
+    // Include data asap:
     this.getItems(API_LINK, BODY);
+
+    // Start refreshing data:
+    const loop = () => {
+      this.getItems(API_LINK, BODY);
+      setTimeout(loop, 1000);
+    };
+
+    setTimeout(loop, 1000);
   }
 
   render() {

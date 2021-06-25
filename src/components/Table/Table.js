@@ -9,11 +9,13 @@ export default class Table extends Component {
     return (
       <TheTable>
         <TableHead />
-        {this.props.isLoading ? (
-          <TableLoading />
-        ) : (
-          <TableRow items={this.props.items} />
-        )}
+        <tbody>
+          {this.props.isLoading ? (
+            <TableLoading />
+          ) : (
+            <TableRow items={this.props.items} />
+          )}
+        </tbody>
       </TheTable>
     );
   }

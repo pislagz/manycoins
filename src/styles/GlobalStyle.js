@@ -14,7 +14,7 @@ body{
 
 }
 
-tbody:nth-of-type(even) {
+tr:nth-of-type(even) {
     background-color: #fafafa;
 }
 
