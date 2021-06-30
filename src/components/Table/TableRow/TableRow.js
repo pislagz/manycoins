@@ -12,7 +12,7 @@ export function TableRow(props) {
             src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`} // icon url as a template literal
             onError={(e) => {
               e.target.onError = null;
-              e.target.src = "https://coincap.io/static/logo_mark.png"; // fallback url if there's no icon in coincap database
+              e.target.src = `https://assets.coincap.io/assets/icons/btg@2x.png`; // fallback url if there's no icon in coincap database
             }}
           />
           <ItemNameWrapper>
@@ -22,10 +22,12 @@ export function TableRow(props) {
         </CoinName>
         <CoinValue className={"data-right"}>
           $
-          {Number(item.priceUsd).toLocaleString("en-US", {
-            maximumFractionDigits: 2,
-            minimumFractionDigits: 2,
-          })}
+          {item.priceUsd >= 1
+            ? Number(item.priceUsd).toLocaleString("en-US", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })
+            : Number(item.priceUsd).toFixed(8)}
         </CoinValue>
         <Coin24Rate
           className={"data-right"}

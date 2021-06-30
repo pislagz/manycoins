@@ -8,12 +8,14 @@ export default class Root extends Component {
     this.state = {
       items: [],
       isLoading: true,
+      icons: [],
     };
   }
 
   getItems = async (API_LINK, BODY) => {
     try {
       let response = await (await fetch(API_LINK, BODY)).json();
+
       console.log(response);
 
       this.setState({ items: response.data, isLoading: false });
