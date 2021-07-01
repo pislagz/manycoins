@@ -8,7 +8,6 @@ export default class Root extends Component {
     this.state = {
       items: [],
       isLoading: true,
-      icons: [],
     };
   }
 
@@ -38,17 +37,28 @@ export default class Root extends Component {
     // Start refreshing data:
     const loop = () => {
       this.getItems(API_LINK, BODY);
-      setTimeout(loop, 1000);
+      setTimeout(loop, 60000);
     };
 
-    setTimeout(loop, 1000);
+    setTimeout(loop, 60000);
   }
+
+  //argument sortBy, switch case
+  handleClick = (sortingFunction) => {
+    this.setState((prevState) => ({
+      items: prevState.items.sort(sortingFunction),
+    }));
+  };
 
   render() {
     return (
       <div className="root">
         <GlobalStyle />
-        <Table items={this.state.items} isLoading={this.state.isLoading} />
+        <Table
+          items={this.state.items}
+          isLoading={this.state.isLoading}
+          handler={this.handleClick}
+        />
       </div>
     );
   }

@@ -1,14 +1,16 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { TableHead } from "./TableHead/TableHead";
+import TableHead from "./TableHead/TableHead";
 import { TableLoading } from "./TableLoading/TableLoading";
 import { TableRow } from "./TableRow/TableRow";
+
+//zrobic funkcyjny :p
 
 export default class Table extends Component {
   render() {
     return (
       <TheTable>
-        <TableHead />
+        <TableHead handler={this.props.handler} />
         <tbody>
           {this.props.isLoading ? (
             <TableLoading />

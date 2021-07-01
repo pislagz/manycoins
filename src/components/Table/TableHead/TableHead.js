@@ -1,20 +1,49 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+import { sortDownByRank, sortUpByRank } from "../../../utils/sortingFunctions";
 
-export function TableHead() {
-  return (
-    <TheHead>
-      <tr>
-        <TitleRank className={"collapsing"}>Rank</TitleRank>
-        <TitleName>Name</TitleName>
-        <TitlePrice>Price</TitlePrice>
-        <Title24Rate>24h %</Title24Rate>
-        <TitleMarketCap className={"data-right collapsing"}>
-          Market Cap
-        </TitleMarketCap>
-      </tr>
-    </TheHead>
-  );
+const SORTING_STATE = {
+  descending: "descending",
+  ascending: "ascending",
+};
+
+export default class TableHead extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rankSortingState: SORTING_STATE.descending,
+    };
+  }
+
+  handleClick = () => {
+    const isDescending =
+      this.state.rankSortingState === SORTING_STATE.descending;
+
+    this.props.handler(isDescending ? sortDownByRank : sortUpByRank);
+    this.setState({
+      rankSortingState: isDescending
+        ? SORTING_STATE.ascending
+        : SORTING_STATE.descending,
+    });
+  };
+
+  render() {
+    return (
+      <TheHead>
+        <tr>
+          <TitleRank className={"collapsing"} onClick={this.handleClick}>
+            Rank
+          </TitleRank>
+          <TitleName>Name</TitleName>
+          <TitlePrice>Price</TitlePrice>
+          <Title24Rate>24h %</Title24Rate>
+          <TitleMarketCap className={"data-right collapsing"}>
+            Market Cap
+          </TitleMarketCap>
+        </tr>
+      </TheHead>
+    );
+  }
 }
 
 const TheHead = styled.thead`
@@ -30,6 +59,10 @@ const TheHead = styled.thead`
 const TitleRank = styled.th`
   text-align: center;
   width: 5%;
+  &:hover {
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.1);
+  }
 `;
 const TitleName = styled.th`
   text-align: left;
