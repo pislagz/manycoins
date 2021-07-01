@@ -11,42 +11,25 @@ export default class Root extends Component {
     };
   }
 
-  getItems = async (API_LINK, BODY) => {
+  getItems = async (API_LINK, BODY, sortingFunction) => {
     try {
       let response = await (await fetch(API_LINK, BODY)).json();
 
       console.log(response);
 
-      this.setState({ items: response.data, isLoading: false });
+      this.setState({
+        items: sortingFunction ? sortingFunction(response.data) : response.data,
+        isLoading: false,
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
-  componentDidMount() {
-    const API_LINK = "https://api.coincap.io/v2/assets";
-    const BODY = () => {
-      return {
-        method: "GET",
-      };
-    };
-
-    // Include data asap:
-    this.getItems(API_LINK, BODY);
-
-    // Start refreshing data:
-    const loop = () => {
-      this.getItems(API_LINK, BODY);
-      setTimeout(loop, 60000);
-    };
-
-    setTimeout(loop, 60000);
-  }
-
-  //argument sortBy, switch case
+  //Sorting
   handleClick = (sortingFunction) => {
     this.setState((prevState) => ({
-      items: prevState.items.sort(sortingFunction),
+      items: sortingFunction(prevState.items),
     }));
   };
 
@@ -55,6 +38,7 @@ export default class Root extends Component {
       <div className="root">
         <GlobalStyle />
         <Table
+          getItems={this.getItems}
           items={this.state.items}
           isLoading={this.state.isLoading}
           handler={this.handleClick}

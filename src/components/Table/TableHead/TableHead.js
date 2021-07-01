@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { sortDownByRank, sortUpByRank } from "../../../utils/sortingFunctions";
+import { CONFIG } from "../../../utils/sortingFunctions";
 
 const SORTING_STATE = {
   descending: "descending",
@@ -11,30 +11,73 @@ export default class TableHead extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rankSortingState: SORTING_STATE.descending,
+      sortingState: SORTING_STATE.descending,
+      currentlySortedColumn: "",
     };
+    this.isDescending = () =>
+      this.state.sortingState === SORTING_STATE.descending;
   }
 
-  handleClick = () => {
-    const isDescending =
-      this.state.rankSortingState === SORTING_STATE.descending;
+  componentDidMount() {
+    const API_LINK = "https://api.coincap.io/v2/assets";
+    const BODY = () => {
+      return {
+        method: "GET",
+      };
+    };
 
-    this.props.handler(isDescending ? sortDownByRank : sortUpByRank);
+    // Include data asap:
+    this.props.getItems(API_LINK, BODY);
+
+    // Start refreshing data:
+    const loop = () => {
+      const type = this.state.currentlySortedColumn;
+      const sortingFunction = () => {
+        if (type !== "") {
+          return this.isDescending()
+            ? CONFIG[type].descendingFunction
+            : CONFIG[type].ascendingFunction;
+        } else {
+          return false;
+        }
+      };
+      this.props.getItems(API_LINK, BODY, sortingFunction());
+      setTimeout(loop, 10000);
+    };
+
+    setTimeout(loop, 10000);
+  }
+
+  handleClick = (type) => {
+    this.props.handler(
+      this.isDescending()
+        ? CONFIG[type].ascendingFunction
+        : CONFIG[type].descendingFunction
+    );
     this.setState({
-      rankSortingState: isDescending
+      sortingState: this.isDescending()
         ? SORTING_STATE.ascending
         : SORTING_STATE.descending,
+
+      currentlySortedColumn: type,
     });
   };
+
+  componentDidUpdate() {
+    console.log(this.state);
+  }
 
   render() {
     return (
       <TheHead>
         <tr>
-          <TitleRank className={"collapsing"} onClick={this.handleClick}>
+          <TitleRank
+            className={"collapsing"}
+            onClick={() => this.handleClick("rank")}
+          >
             Rank
           </TitleRank>
-          <TitleName>Name</TitleName>
+          <TitleName onClick={() => this.handleClick("name")}>Name</TitleName>
           <TitlePrice>Price</TitlePrice>
           <Title24Rate>24h %</Title24Rate>
           <TitleMarketCap className={"data-right collapsing"}>

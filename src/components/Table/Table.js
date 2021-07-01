@@ -10,7 +10,10 @@ export default class Table extends Component {
   render() {
     return (
       <TheTable>
-        <TableHead handler={this.props.handler} />
+        <TableHead
+          getItems={this.props.getItems}
+          handler={this.props.handler}
+        />
         <tbody>
           {this.props.isLoading ? (
             <TableLoading />
