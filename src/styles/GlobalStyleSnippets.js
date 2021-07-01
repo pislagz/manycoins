@@ -9,4 +9,7 @@ export const ClickableHeader = `
         cursor: pointer;
         background: rgba(0, 0, 0, 0.1);
     }
+    &:active {
+        background: rgba(0, 0, 0, 0.2);
+    }
 `;

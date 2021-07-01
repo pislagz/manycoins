@@ -22,10 +22,4 @@ tr:nth-of-type(even) {
     text-align: right;
 }
 
-/* @media only screen and (max-width: 770px) { 
-    .collapsing {
-        display: none;
-    }
-} */
-
 `;

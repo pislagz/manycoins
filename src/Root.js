@@ -11,7 +11,7 @@ export default class Root extends Component {
     };
   }
 
-  refreshRate = () => 1000 * 10; // 1000 * seconds
+  refreshRate = () => 1000 * 15; // means there's an API call every 15 seconds
 
   getItems = async (API_LINK, BODY, sortingFunction) => {
     try {

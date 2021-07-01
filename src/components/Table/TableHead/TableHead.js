@@ -77,9 +77,15 @@ export default class TableHead extends Component {
         <tr>
           <TitleRank onClick={() => this.handleClick("rank")}>Rank</TitleRank>
           <TitleName onClick={() => this.handleClick("name")}>Name</TitleName>
-          <TitlePrice>Price</TitlePrice>
-          <Title24Rate>24h %</Title24Rate>
-          <TitleMarketCap>Market Cap</TitleMarketCap>
+          <TitlePrice onClick={() => this.handleClick("price")}>
+            Price
+          </TitlePrice>
+          <Title24Rate onClick={() => this.handleClick("change24")}>
+            24h %
+          </Title24Rate>
+          <TitleMarketCap onClick={() => this.handleClick("marketCap")}>
+            Market Cap
+          </TitleMarketCap>
         </tr>
       </TheHead>
     );
@@ -108,15 +114,18 @@ const TitleName = styled.th`
   width: 45%;
 `;
 const TitlePrice = styled.th`
+  ${ClickableHeader};
   width: 45%;
 `;
 
 const Title24Rate = styled.th`
+  ${ClickableHeader};
   text-align: right;
   width: 5%;
 `;
 
 const TitleMarketCap = styled.th`
+  ${ClickableHeader};
   ${Collapsing};
   text-align: right;
 `;
