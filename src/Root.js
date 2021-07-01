@@ -11,6 +11,8 @@ export default class Root extends Component {
     };
   }
 
+  refreshRate = () => 1000 * 10; // 1000 * seconds
+
   getItems = async (API_LINK, BODY, sortingFunction) => {
     try {
       let response = await (await fetch(API_LINK, BODY)).json();
@@ -38,6 +40,7 @@ export default class Root extends Component {
       <div className="root">
         <GlobalStyle />
         <Table
+          refreshRate={() => this.refreshRate()}
           getItems={this.getItems}
           items={this.state.items}
           isLoading={this.state.isLoading}

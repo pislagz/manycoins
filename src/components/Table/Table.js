@@ -11,6 +11,7 @@ export default class Table extends Component {
     return (
       <TheTable>
         <TableHead
+          refreshRate={this.props.refreshRate}
           getItems={this.props.getItems}
           handler={this.props.handler}
         />

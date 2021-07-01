@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { CONFIG } from "../../../utils/sortingFunctions";
+import {
+  Collapsing,
+  ClickableHeader,
+} from "../../../styles/GlobalStyleSnippets";
 
 const SORTING_STATE = {
   descending: "descending",
@@ -42,10 +46,10 @@ export default class TableHead extends Component {
         }
       };
       this.props.getItems(API_LINK, BODY, sortingFunction());
-      setTimeout(loop, 10000);
+      setTimeout(loop, this.props.refreshRate());
     };
 
-    setTimeout(loop, 10000);
+    setTimeout(loop, this.props.refreshRate());
   }
 
   handleClick = (type) => {
@@ -71,18 +75,11 @@ export default class TableHead extends Component {
     return (
       <TheHead>
         <tr>
-          <TitleRank
-            className={"collapsing"}
-            onClick={() => this.handleClick("rank")}
-          >
-            Rank
-          </TitleRank>
+          <TitleRank onClick={() => this.handleClick("rank")}>Rank</TitleRank>
           <TitleName onClick={() => this.handleClick("name")}>Name</TitleName>
           <TitlePrice>Price</TitlePrice>
           <Title24Rate>24h %</Title24Rate>
-          <TitleMarketCap className={"data-right collapsing"}>
-            Market Cap
-          </TitleMarketCap>
+          <TitleMarketCap>Market Cap</TitleMarketCap>
         </tr>
       </TheHead>
     );
@@ -100,14 +97,13 @@ const TheHead = styled.thead`
 `;
 
 const TitleRank = styled.th`
+  ${Collapsing};
+  ${ClickableHeader};
   text-align: center;
   width: 5%;
-  &:hover {
-    cursor: pointer;
-    background: rgba(0, 0, 0, 0.1);
-  }
 `;
 const TitleName = styled.th`
+  ${ClickableHeader};
   text-align: left;
   width: 45%;
 `;
@@ -120,4 +116,7 @@ const Title24Rate = styled.th`
   width: 5%;
 `;
 
-const TitleMarketCap = styled.th``;
+const TitleMarketCap = styled.th`
+  ${Collapsing};
+  text-align: right;
+`;

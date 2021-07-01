@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { MONEY_FORMAT } from "../../../utils/utilityFunctions";
+import { Collapsing } from "../../../styles/GlobalStyleSnippets";
 
 export function TableRow(props) {
   return props.items.map((item) => {
     return (
       <Row key={`${item.rank}-${item.id}`}>
-        <CoinRank className={"collapsing"}>{item.rank}</CoinRank>
+        <CoinRank>{item.rank}</CoinRank>
         <CoinName>
           <ItemIcon
             src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`} // icon url as a template literal
@@ -20,7 +21,7 @@ export function TableRow(props) {
             <ItemSymbol>{item.symbol}</ItemSymbol>
           </ItemNameWrapper>
         </CoinName>
-        <CoinValue className={"data-right"}>
+        <CoinValue>
           $
           {item.priceUsd >= 1
             ? Number(item.priceUsd).toLocaleString("en-US", {
@@ -30,16 +31,13 @@ export function TableRow(props) {
             : Number(item.priceUsd).toFixed(8)}
         </CoinValue>
         <Coin24Rate
-          className={"data-right"}
           style={{
             color: Number(item.changePercent24Hr) > 0 ? "#13b016" : "#d6230f",
           }}
         >
           {Number(item.changePercent24Hr).toFixed(2)}%
         </Coin24Rate>
-        <MarketCap className={"collapsing"}>
-          {MONEY_FORMAT(item.marketCapUsd)}
-        </MarketCap>
+        <MarketCap>{MONEY_FORMAT(item.marketCapUsd)}</MarketCap>
       </Row>
     );
   });
@@ -50,6 +48,7 @@ const Row = styled.tr`
 `;
 
 const CoinRank = styled.td`
+  ${Collapsing};
   text-align: center;
 `;
 
@@ -58,9 +57,15 @@ const CoinName = styled.td`
   display: flex;
 `;
 
-const CoinValue = styled.td``;
-const Coin24Rate = styled.td``;
-const MarketCap = styled.td``;
+const CoinValue = styled.td`
+  text-align: right;
+`;
+const Coin24Rate = styled.td`
+  text-align: right;
+`;
+const MarketCap = styled.td`
+  ${Collapsing};
+`;
 
 const ItemIcon = styled.img`
   align-self: center;
