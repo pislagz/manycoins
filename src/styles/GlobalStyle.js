@@ -18,8 +18,4 @@ tr:nth-of-type(even) {
     background-color: #fafafa;
 }
 
-.data-right {
-    text-align: right;
-}
-
 `;

@@ -8,6 +8,7 @@ export const ClickableHeader = `
     &:hover {
         cursor: pointer;
         background: rgba(0, 0, 0, 0.1);
+        transition: background 0.4s;
     }
     &:active {
         background: rgba(0, 0, 0, 0.2);
