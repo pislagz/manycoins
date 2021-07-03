@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GlobalStyle from "./styles/GlobalStyle";
 import Table from "./components/Table/Table";
+import Logo from "./components/Logo/Logo";
 
 export default class Root extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ export default class Root extends Component {
     return (
       <div className="root">
         <GlobalStyle />
+        <Logo />
         <Table
           refreshRate={() => this.refreshRate()}
           getItems={this.getItems}

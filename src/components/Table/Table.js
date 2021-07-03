@@ -35,6 +35,12 @@ const TheTable = styled.table`
   th,
   td {
     padding: 0.8rem 1.1rem;
+    &:nth-of-type(1) {
+      padding: 0 0 0 1rem;
+    }
+    &:nth-of-type(2) {
+      padding: 0;
+    }
   }
 
   tbody {

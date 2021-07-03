@@ -2,18 +2,20 @@ import React from "react";
 import styled from "styled-components";
 import { MONEY_FORMAT } from "../../../utils/utilityFunctions";
 import { Collapsing, Expanding } from "../../../styles/GlobalStyleSnippets";
+import coinImage from "../../../assets/icons/coin64.ico";
 
 export function TableRow(props) {
   return props.items.map((item) => {
     return (
       <Row key={`${item.rank}-${item.id}`}>
+        <Favs>star</Favs>
         <CoinRank>{item.rank}</CoinRank>
         <CoinName>
           <ItemIcon
             src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`} // icon url as a template literal
             onError={(e) => {
               e.target.onError = null;
-              e.target.src = `https://assets.coincap.io/assets/icons/btg@2x.png`; // fallback url if there's no icon in coincap database
+              e.target.src = coinImage; // fallback url if there's no icon in coincap database
             }}
           />
           <ItemNameWrapper>
@@ -48,6 +50,16 @@ export function TableRow(props) {
 
 const Row = styled.tr`
   cursor: pointer;
+`;
+
+const Favs = styled.td`
+  font-size: 1.5rem;
+  color: lightgray;
+  font-family: "Material Icons";
+
+  &:hover {
+    color: #ffdb59;
+  }
 `;
 
 const CoinRank = styled.td`

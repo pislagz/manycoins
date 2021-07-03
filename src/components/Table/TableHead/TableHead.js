@@ -75,6 +75,7 @@ export default class TableHead extends Component {
     return (
       <TheHead>
         <tr>
+          <TitleFavs>star_outline</TitleFavs>
           <TitleRank onClick={() => this.handleClick("rank")}>Rank</TitleRank>
           <TitleName onClick={() => this.handleClick("name")}>Name</TitleName>
           <TitlePrice onClick={() => this.handleClick("price")}>
@@ -100,6 +101,12 @@ const TheHead = styled.thead`
     font-weight: bold;
     font-size: 0.8rem;
   }
+`;
+
+const TitleFavs = styled.th`
+  ${ClickableHeader}
+  font-family: 'Material Icons';
+  text-align: center;
 `;
 
 const TitleRank = styled.th`

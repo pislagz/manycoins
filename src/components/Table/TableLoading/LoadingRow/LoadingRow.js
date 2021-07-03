@@ -7,6 +7,12 @@ export function LoadingRow() {
   return (
     <>
       <TR>
+        <Fav>
+          {" "}
+          <LoadingWrapper>
+            <LoadingDot></LoadingDot>
+          </LoadingWrapper>
+        </Fav>
         <Rank>
           <LoadingWrapper>
             <LoadingDot></LoadingDot>
@@ -36,6 +42,8 @@ export function LoadingRow() {
     </>
   );
 }
+
+const Fav = styled.td``;
 
 const Rank = styled.td`
   ${Collapsing};
