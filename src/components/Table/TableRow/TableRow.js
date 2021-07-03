@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { MONEY_FORMAT } from "../../../utils/utilityFunctions";
-import { Collapsing } from "../../../styles/GlobalStyleSnippets";
+import { Collapsing, Expanding } from "../../../styles/GlobalStyleSnippets";
 
 export function TableRow(props) {
   return props.items.map((item) => {
@@ -18,7 +18,10 @@ export function TableRow(props) {
           />
           <ItemNameWrapper>
             <ItemName>{item.name}</ItemName>
-            <ItemSymbol>{item.symbol}</ItemSymbol>
+            <SymbolWrapper>
+              <ItemSymbol>{item.symbol}</ItemSymbol>
+              <p>#{item.rank}</p>
+            </SymbolWrapper>
           </ItemNameWrapper>
         </CoinName>
         <CoinValue>
@@ -77,6 +80,23 @@ const ItemIcon = styled.img`
 const ItemName = styled.span`
   font-size: 1.1rem;
 `;
+
+const SymbolWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    ${Expanding};
+    margin: 0 0 0 1rem;
+    font-size: 1rem;
+    font-weight: 300;
+    font-style: italic;
+    background: #fee8ff;
+    border-radius: 9999px;
+    padding: 0.2rem 0.5rem;
+  }
+`;
+
 const ItemSymbol = styled.span`
   font-weight: 300;
   font-style: italic;

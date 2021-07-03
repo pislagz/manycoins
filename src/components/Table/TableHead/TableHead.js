@@ -23,7 +23,7 @@ export default class TableHead extends Component {
   }
 
   componentDidMount() {
-    const API_LINK = "https://api.coincap.io/v2/assets";
+    const API_LINK = `https://api.coincap.io/v2/assets`; //?limit=100
     const BODY = () => {
       return {
         method: "GET",

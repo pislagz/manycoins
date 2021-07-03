@@ -4,6 +4,12 @@ export const Collapsing = `
     }
 `;
 
+export const Expanding = `
+    @media only screen and (min-width: 770px) { 
+        display: none;
+    }
+`;
+
 export const ClickableHeader = `
     &:hover {
         cursor: pointer;

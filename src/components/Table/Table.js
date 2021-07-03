@@ -42,6 +42,13 @@ const TheTable = styled.table`
       border-bottom: 1px solid #dddddd;
       &:hover {
         background: #fbf0ff;
+        div {
+          div {
+            p {
+              background: #e6fffe;
+            }
+          }
+        }
         span:first-of-type {
           font-weight: 500;
         }
