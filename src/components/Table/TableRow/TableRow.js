@@ -12,10 +12,10 @@ export function TableRow(props) {
         <CoinRank>{item.rank}</CoinRank>
         <CoinName>
           <ItemIcon
-            src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`} // icon url as a template literal
+            src={`https://assets.coincap.io/assets/icons/${item.symbol.toLowerCase()}@2x.png`} // icon url
             onError={(e) => {
               e.target.onError = null;
-              e.target.src = coinImage; // fallback url if there's no icon in coincap database
+              e.target.src = coinImage; // fallback if there's no icon in coincap database
             }}
           />
           <ItemNameWrapper>
@@ -58,7 +58,12 @@ const Favs = styled.td`
   font-family: "Material Icons";
 
   &:hover {
+    color: grey;
+  }
+
+  &:active {
     color: #ffdb59;
+    text-shadow: 0px 0px 3px black;
   }
 `;
 

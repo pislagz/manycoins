@@ -4,10 +4,47 @@ import logoImage from "../../assets/icons/coinM.png";
 
 const Logo = () => (
   <Wrapper>
-    <Image src={logoImage}></Image>
-    <Text>Manycoins</Text>
+    <Link href="/">
+      <Image src={logoImage} alt={"manycoins logo"}></Image>
+      <Text>Manycoins</Text>
+    </Link>
   </Wrapper>
 );
+
+const Link = styled.a`
+  display: flex;
+  align-items: center;
+  &:link,
+  &:visited,
+  &:hover,
+  &:active {
+    text-decoration: none;
+  }
+
+  &:hover {
+    p {
+      color: #fad964;
+      transform: scale(105%);
+      transition: transform 0.1s;
+    }
+    img {
+      transform: scale(105%);
+      transition: transform 0.1s;
+    }
+
+    &:active {
+      p {
+        color: #fad964;
+        transform: scale(95%);
+        transition: transform 0.1s;
+      }
+      img {
+        transform: scale(95%);
+        transition: transform 0.1s;
+      }
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   display: flex;

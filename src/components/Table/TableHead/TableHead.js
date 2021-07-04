@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import { CONFIG } from "../../../utils/sortingFunctions";
 import {
+  ArrowDown,
+  ArrowUp,
   Collapsing,
-  ClickableHeader,
 } from "../../../styles/GlobalStyleSnippets";
 
 const SORTING_STATE = {
@@ -76,16 +77,46 @@ export default class TableHead extends Component {
       <TheHead>
         <tr>
           <TitleFavs>star_outline</TitleFavs>
-          <TitleRank onClick={() => this.handleClick("rank")}>Rank</TitleRank>
-          <TitleName onClick={() => this.handleClick("name")}>Name</TitleName>
-          <TitlePrice onClick={() => this.handleClick("price")}>
-            Price
+          <TitleRank>
+            <Wrapper>
+              <p className={"rank"} onClick={() => this.handleClick("rank")}>
+                Rank
+              </p>
+            </Wrapper>
+          </TitleRank>
+          <TitleName>
+            <Wrapper>
+              <p className={"name"} onClick={() => this.handleClick("name")}>
+                Name
+              </p>
+            </Wrapper>
+          </TitleName>
+          <TitlePrice>
+            <Wrapper>
+              <p className={"price"} onClick={() => this.handleClick("price")}>
+                Price
+              </p>
+            </Wrapper>
           </TitlePrice>
-          <Title24Rate onClick={() => this.handleClick("change24")}>
-            24h&nbsp;%
+          <Title24Rate>
+            <Wrapper>
+              <p
+                className={"change24"}
+                onClick={() => this.handleClick("change24")}
+              >
+                24h&nbsp;%
+              </p>
+            </Wrapper>
           </Title24Rate>
-          <TitleMarketCap onClick={() => this.handleClick("marketCap")}>
-            Market&nbsp;Cap
+          <TitleMarketCap>
+            <Wrapper>
+              <p
+                className={"marketCap"}
+                onClick={() => this.handleClick("marketCap")}
+              >
+                Market&nbsp;Cap
+              </p>
+            </Wrapper>
           </TitleMarketCap>
         </tr>
       </TheHead>
@@ -104,36 +135,59 @@ const TheHead = styled.thead`
 `;
 
 const TitleFavs = styled.th`
-  ${ClickableHeader}
-  font-family: 'Material Icons';
+  font-family: "Material Icons";
   text-align: center;
 `;
 
 const TitleRank = styled.th`
   ${Collapsing};
-  ${ClickableHeader};
   text-align: center;
   width: 5%;
+  div {
+    justify-content: center;
+  }
 `;
 const TitleName = styled.th`
-  ${ClickableHeader};
   text-align: left;
   width: 40%;
+  div {
+    justify-content: flex-start;
+  }
 `;
 const TitlePrice = styled.th`
-  ${ClickableHeader};
   width: 45%;
 `;
 
 const Title24Rate = styled.th`
-  ${ClickableHeader};
   text-align: right;
   width: 5%;
 `;
 
 const TitleMarketCap = styled.th`
-  ${ClickableHeader};
   ${Collapsing};
   text-align: right;
   width: 5%;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  p {
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    &.rank {
+    }
+    &.name {
+    }
+    &.price {
+    }
+    &.change24 {
+    }
+    &.marketCap {
+    }
+  }
 `;
