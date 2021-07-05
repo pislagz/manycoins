@@ -41,13 +41,15 @@ export default class Root extends Component {
       <div className="root">
         <GlobalStyle />
         <Logo />
-        <Table
-          refreshRate={() => this.refreshRate()}
-          getItems={this.getItems}
-          items={this.state.items}
-          isLoading={this.state.isLoading}
-          handler={this.handleClick}
-        />
+        <div className={"table-wrapper"}>
+          <Table
+            refreshRate={() => this.refreshRate()}
+            getItems={this.getItems}
+            items={this.state.items}
+            isLoading={this.state.isLoading}
+            handler={this.handleClick}
+          />
+        </div>
       </div>
     );
   }

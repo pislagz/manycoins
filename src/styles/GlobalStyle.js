@@ -17,4 +17,9 @@ tr:nth-of-type(even) {
     background-color: #fafafa;
 }
 
+.table-wrapper {
+    width: 100%;
+    overflow-x: scroll;
+}
+
 `;

@@ -1,11 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { CONFIG } from "../../../utils/sortingFunctions";
-import {
-  ArrowDown,
-  ArrowUp,
-  Collapsing,
-} from "../../../styles/GlobalStyleSnippets";
+import { Collapsing } from "../../../styles/GlobalStyleSnippets";
 
 const SORTING_STATE = {
   descending: "descending",
@@ -17,7 +13,7 @@ export default class TableHead extends Component {
     super(props);
     this.state = {
       sortingState: SORTING_STATE.descending,
-      currentlySortedColumn: "",
+      currentlySortedColumn: "rank",
     };
     this.isDescending = () =>
       this.state.sortingState === SORTING_STATE.descending;
@@ -79,41 +75,47 @@ export default class TableHead extends Component {
           <TitleFavs>star_outline</TitleFavs>
           <TitleRank>
             <Wrapper>
-              <p className={"rank"} onClick={() => this.handleClick("rank")}>
-                Rank
-              </p>
+              <p onClick={() => this.handleClick("rank")}>Rank</p>
+              <Arrow
+                direction={this.state.sortingState}
+                isVisible={this.state.currentlySortedColumn === "rank"}
+              />
             </Wrapper>
           </TitleRank>
           <TitleName>
             <Wrapper>
-              <p className={"name"} onClick={() => this.handleClick("name")}>
-                Name
-              </p>
+              <p onClick={() => this.handleClick("name")}>Name</p>
+              <Arrow
+                direction={this.state.sortingState}
+                isVisible={this.state.currentlySortedColumn === "name"}
+              />
             </Wrapper>
           </TitleName>
           <TitlePrice>
             <Wrapper>
-              <p className={"price"} onClick={() => this.handleClick("price")}>
-                Price
-              </p>
+              <p onClick={() => this.handleClick("price")}>Price</p>
+              <Arrow
+                direction={this.state.sortingState}
+                isVisible={this.state.currentlySortedColumn === "price"}
+              />
             </Wrapper>
           </TitlePrice>
           <Title24Rate>
             <Wrapper>
-              <p
-                className={"change24"}
-                onClick={() => this.handleClick("change24")}
-              >
-                24h&nbsp;%
-              </p>
+              <p onClick={() => this.handleClick("change24")}>24h&nbsp;%</p>
+              <Arrow
+                direction={this.state.sortingState}
+                isVisible={this.state.currentlySortedColumn === "change24"}
+              />
             </Wrapper>
           </Title24Rate>
           <TitleMarketCap>
             <Wrapper>
-              <p
-                className={"marketCap"}
-                onClick={() => this.handleClick("marketCap")}
-              >
+              <p onClick={() => this.handleClick("marketCap")}>
+                <Arrow
+                  direction={this.state.sortingState}
+                  isVisible={this.state.currentlySortedColumn === "marketCap"}
+                />
                 Market&nbsp;Cap
               </p>
             </Wrapper>
@@ -178,16 +180,24 @@ const Wrapper = styled.div`
     margin: 0;
     padding: 0;
     position: relative;
-
-    &.rank {
-    }
-    &.name {
-    }
-    &.price {
-    }
-    &.change24 {
-    }
-    &.marketCap {
-    }
   }
 `;
+
+const StyledArrow = styled.img`
+  width: 10px;
+  height: 10px;
+  opacity: ${(props) => (props.isVisible ? "100" : "0")}%;
+  transition: 0.3s opacity ease;
+  transform: ${(props) =>
+    props.direction === "descending" ? "rotate(90deg)" : "rotate(-90deg)"}; ;
+`;
+
+const Arrow = (props) => {
+  return (
+    <StyledArrow
+      direction={props.direction}
+      isVisible={props.isVisible}
+      src={"/assets/play.svg"}
+    />
+  );
+};

@@ -49,6 +49,7 @@ const Link = styled.a`
 const Wrapper = styled.div`
   display: flex;
   /* justify-content: center; */
+  width: 100%;
   align-items: center;
   background: linear-gradient(
     90deg,
