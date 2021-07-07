@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import {
+  Collapsing,
+  CustomBelow770px,
+} from "../../../styles/GlobalStyleSnippets";
 import { CONFIG } from "../../../utils/sortingFunctions";
-import { Collapsing } from "../../../styles/GlobalStyleSnippets";
 
 const SORTING_STATE = {
   descending: "descending",
@@ -72,7 +75,7 @@ export default class TableHead extends Component {
     return (
       <TheHead>
         <tr>
-          <TitleFavs>star_outline</TitleFavs>
+          <TitleFavs>✭</TitleFavs>
           <TitleRank>
             <Wrapper>
               <p onClick={() => this.handleClick("rank")}>Rank</p>
@@ -129,6 +132,7 @@ export default class TableHead extends Component {
 const TheHead = styled.thead`
   background: #f4f4f4;
   border-bottom: 1px solid #bababa;
+
   tr {
     text-align: right;
     font-weight: bold;
@@ -137,38 +141,41 @@ const TheHead = styled.thead`
 `;
 
 const TitleFavs = styled.th`
-  font-family: "Material Icons";
   text-align: center;
 `;
 
 const TitleRank = styled.th`
-  ${Collapsing};
-  text-align: center;
-  width: 5%;
+  ${Collapsing}
   div {
-    justify-content: center;
+    /* justify-content: center; */
   }
 `;
 const TitleName = styled.th`
-  text-align: left;
-  width: 40%;
   div {
     justify-content: flex-start;
+    p {
+      margin-left: 0.5rem;
+      ${CustomBelow770px(`margin-left: 0;`)}
+    }
   }
 `;
-const TitlePrice = styled.th`
-  width: 45%;
-`;
+const TitlePrice = styled.th``;
 
 const Title24Rate = styled.th`
-  text-align: right;
-  width: 5%;
+  ${CustomBelow770px(`div {
+    justify-content: center;
+  }`)}
 `;
 
 const TitleMarketCap = styled.th`
-  ${Collapsing};
-  text-align: right;
-  width: 5%;
+  ${Collapsing}
+  div {
+    justify-content: center;
+  }
+
+  img {
+    right: -104%;
+  }
 `;
 
 const Wrapper = styled.div`
@@ -186,6 +193,8 @@ const Wrapper = styled.div`
 const StyledArrow = styled.img`
   width: 10px;
   height: 10px;
+  position: relative;
+  right: -5px;
   opacity: ${(props) => (props.isVisible ? "100" : "0")}%;
   transition: 0.3s opacity ease;
   transform: ${(props) =>

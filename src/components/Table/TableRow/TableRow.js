@@ -1,14 +1,20 @@
 import React from "react";
 import styled from "styled-components";
 import { MONEY_FORMAT } from "../../../utils/utilityFunctions";
-import { Collapsing, Expanding } from "../../../styles/GlobalStyleSnippets";
+import {
+  Collapsing,
+  CollapsingIcon,
+  CustomBelow770px,
+  Expanding,
+  FontSizeBelow770px,
+} from "../../../styles/GlobalStyleSnippets";
 import coinImage from "../../../assets/icons/coin64.ico";
 
 export function TableRow(props) {
   return props.items.map((item) => {
     return (
       <Row key={`${item.rank}-${item.id}`}>
-        <Favs>star</Favs>
+        <Favs>✭</Favs>
         <CoinRank>{item.rank}</CoinRank>
         <CoinName>
           <ItemIcon
@@ -55,7 +61,6 @@ const Row = styled.tr`
 const Favs = styled.td`
   font-size: 1.5rem;
   color: lightgray;
-  font-family: "Material Icons";
 
   &:hover {
     color: grey;
@@ -68,7 +73,7 @@ const Favs = styled.td`
 `;
 
 const CoinRank = styled.td`
-  ${Collapsing};
+  ${Collapsing}
   text-align: center;
 `;
 
@@ -78,16 +83,23 @@ const CoinName = styled.td`
 `;
 
 const CoinValue = styled.td`
+  ${FontSizeBelow770px(0.9)}
+  font-size: 1rem;
   text-align: right;
 `;
 const Coin24Rate = styled.td`
+  ${FontSizeBelow770px(0.9)}
+  font-size: 1rem;
   text-align: right;
+  ${CustomBelow770px("text-align: center;")}
 `;
 const MarketCap = styled.td`
-  ${Collapsing};
+  ${Collapsing}
+  text-align: center;
 `;
 
 const ItemIcon = styled.img`
+  ${CollapsingIcon}
   align-self: center;
   height: 1.8rem;
   width: 1.8rem;
@@ -95,6 +107,7 @@ const ItemIcon = styled.img`
 `;
 
 const ItemName = styled.span`
+  ${FontSizeBelow770px(0.8)}
   font-size: 1.1rem;
 `;
 
@@ -104,7 +117,7 @@ const SymbolWrapper = styled.div`
   justify-content: center;
   p {
     ${Expanding};
-    margin: 0 0 0 1rem;
+    margin: 0 0 0 0.5rem;
     font-size: 1rem;
     font-weight: 300;
     font-style: italic;
@@ -115,6 +128,8 @@ const SymbolWrapper = styled.div`
 `;
 
 const ItemSymbol = styled.span`
+  ${FontSizeBelow770px(0.9)}
+  font-size: 1rem;
   font-weight: 300;
   font-style: italic;
 `;

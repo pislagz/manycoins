@@ -17,6 +17,10 @@ tr:nth-of-type(even) {
     background-color: #fafafa;
 }
 
+td {
+    /* border-right: 1px solid red; */
+}
+
 .table-wrapper {
     width: 100%;
     overflow-x: scroll;
