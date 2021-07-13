@@ -14,7 +14,9 @@ export function TableRow(props) {
   return props.items.map((item) => {
     return (
       <Row key={`${item.rank}-${item.id}`}>
-        <Favs>✭</Favs>
+        <Favs>
+          <div>♡</div>
+        </Favs>
         <CoinRank>{item.rank}</CoinRank>
         <CoinName>
           <ItemIcon
@@ -59,16 +61,20 @@ const Row = styled.tr`
 `;
 
 const Favs = styled.td`
-  font-size: 1.5rem;
-  color: lightgray;
+  padding-left: 1rem !important;
+  div {
+    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+    font-size: 1.5rem;
+    color: lightgray;
 
-  &:hover {
-    color: grey;
-  }
+    &:hover {
+      color: red;
+    }
 
-  &:active {
-    color: #ffdb59;
-    text-shadow: 0px 0px 3px black;
+    &:active {
+      color: red;
+      text-shadow: 0px 0px 3px red;
+    }
   }
 `;
 

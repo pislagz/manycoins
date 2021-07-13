@@ -9,12 +9,14 @@ export default class Table extends Component {
   render() {
     return (
       <TheTable>
-        <Column1 />
-        <Column2 />
-        <Column3 />
-        <Column4 />
-        <Column5 />
-        <Column6 />
+        <colgroup>
+          <Column1 />
+          <Column2 />
+          <Column3 />
+          <Column4 />
+          <Column5 />
+          <Column6 />
+        </colgroup>
         <TableHead
           refreshRate={this.props.refreshRate}
           getItems={this.props.getItems}
@@ -51,6 +53,11 @@ const TheTable = styled.table`
       padding-left: 0;
       padding-right: 0;
     }
+  }
+
+  th {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   tbody {

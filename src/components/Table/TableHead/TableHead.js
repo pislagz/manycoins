@@ -15,7 +15,7 @@ export default class TableHead extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortingState: SORTING_STATE.descending,
+      sortingState: SORTING_STATE.ascending,
       currentlySortedColumn: "rank",
     };
     this.isDescending = () =>
@@ -23,7 +23,7 @@ export default class TableHead extends Component {
   }
 
   componentDidMount() {
-    const API_LINK = `https://api.coincap.io/v2/assets`; //?limit=100
+    const API_LINK = `https://api.coincap.io/v2/assets`; //?limit=100 (max 2000)
     const BODY = () => {
       return {
         method: "GET",
@@ -75,7 +75,7 @@ export default class TableHead extends Component {
     return (
       <TheHead>
         <tr>
-          <TitleFavs>✭</TitleFavs>
+          <TitleFavs>♡</TitleFavs>
           <TitleRank>
             <Wrapper>
               <p onClick={() => this.handleClick("rank")}>Rank</p>
@@ -141,7 +141,9 @@ const TheHead = styled.thead`
 `;
 
 const TitleFavs = styled.th`
+  padding-left: 1rem !important;
   text-align: center;
+  font-size: 1.5rem;
 `;
 
 const TitleRank = styled.th`
@@ -191,10 +193,11 @@ const Wrapper = styled.div`
 `;
 
 const StyledArrow = styled.img`
-  width: 10px;
-  height: 10px;
+  width: 6px;
+  height: 6px;
   position: relative;
   right: -5px;
+  bottom: -2px;
   opacity: ${(props) => (props.isVisible ? "100" : "0")}%;
   transition: 0.3s opacity ease;
   transform: ${(props) =>

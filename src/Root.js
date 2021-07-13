@@ -9,6 +9,7 @@ export default class Root extends Component {
     this.state = {
       items: [],
       isLoading: true,
+      favorites: [],
     };
   }
 
