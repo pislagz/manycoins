@@ -15,7 +15,15 @@ export function TableRow(props) {
     return (
       <Row key={`${item.rank}-${item.id}`}>
         <Favs>
-          <div>♡</div>
+          <div
+            onClick={() =>
+              localStorage.getItem(item.id) === null
+                ? localStorage.setItem(item.id, "isFav")
+                : localStorage.removeItem(item.id)
+            }
+          >
+            {localStorage.getItem(item.id) === null ? "♡" : "❤️"}
+          </div>
         </Favs>
         <CoinRank>{item.rank}</CoinRank>
         <CoinName>
@@ -81,6 +89,7 @@ const Favs = styled.td`
 const CoinRank = styled.td`
   ${Collapsing}
   text-align: center;
+  padding-left: 0 !important;
 `;
 
 const CoinName = styled.td`
