@@ -11,6 +11,9 @@ export default class Root extends Component {
       isLoading: true,
       favorites: [],
     };
+    if (!localStorage.getItem("data")) {
+      localStorage.setItem("data", "[]");
+    }
   }
 
   refreshRate = () => 1000 * 15; // means there's an API call every 15 seconds
