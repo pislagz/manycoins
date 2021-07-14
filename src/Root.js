@@ -37,6 +37,28 @@ export default class Root extends Component {
     }));
   };
 
+  handleFavClick = (id) => {
+    let tempArray = this.state.favorites;
+
+    if (tempArray?.includes(id)) {
+      tempArray?.splice(tempArray.indexOf(id), 1);
+    } else {
+      tempArray?.push(id);
+    }
+    this.setState({ favorites: tempArray });
+
+    localStorage.setItem("data", JSON.stringify(tempArray));
+  };
+
+  componentDidMount() {
+    if (localStorage.getItem("data") !== "null") {
+      let data = JSON.parse(localStorage.getItem("data"));
+      this.setState({ favorites: data });
+    } else {
+      this.setState({ favorites: [] });
+    }
+  }
+
   render() {
     return (
       <div className="root">
@@ -49,6 +71,8 @@ export default class Root extends Component {
             items={this.state.items}
             isLoading={this.state.isLoading}
             handler={this.handleClick}
+            handleFavClick={this.handleFavClick}
+            favorites={this.state.favorites}
           />
         </div>
       </div>

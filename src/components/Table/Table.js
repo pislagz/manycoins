@@ -19,7 +19,11 @@ export default class Table extends Component {
           {this.props.isLoading ? (
             <TableLoading />
           ) : (
-            <TableRow items={this.props.items} />
+            <TableRow
+              items={this.props.items}
+              handleFavClick={this.props.handleFavClick}
+              favorites={this.props.favorites}
+            />
           )}
         </tbody>
       </TheTable>
