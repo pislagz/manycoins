@@ -5,6 +5,7 @@ import {
   CustomBelow770px,
 } from "../../../styles/GlobalStyleSnippets";
 import { CONFIG } from "../../../utils/sortingFunctions";
+import { Favorite, NoFavorite } from "../Star/Star";
 
 const SORTING_STATE = {
   descending: "descending",
@@ -75,7 +76,11 @@ export default class TableHead extends Component {
     return (
       <TheHead>
         <tr>
-          <TitleFavs>♡</TitleFavs>
+          <TitleFavs>
+            <Wrapper onClick={() => this.props.handleSwitchFavorites()}>
+              {this.props.onlyFavorites ? <Favorite /> : <NoFavorite />}
+            </Wrapper>
+          </TitleFavs>
           <TitleRank>
             <Wrapper>
               <p onClick={() => this.handleClick("rank")}>Rank</p>
@@ -144,6 +149,14 @@ const TitleFavs = styled.th`
   padding-left: 1rem !important;
   text-align: center;
   font-size: 1.5rem;
+  div {
+    cursor: pointer;
+
+    img {
+      margin: 0.7rem;
+      margin-left: 0;
+    }
+  }
 `;
 
 const TitleRank = styled.th`
@@ -189,6 +202,14 @@ const Wrapper = styled.div`
     margin: 0;
     padding: 0;
     position: relative;
+    &:hover {
+      transform: scale(105%);
+      transition: transform 0.1s;
+    }
+    &:active {
+      transform: scale(95%);
+      transition: transform 0.1s;
+    }
   }
 `;
 

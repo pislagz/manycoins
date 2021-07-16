@@ -8,9 +8,11 @@ export default class Root extends Component {
     super(props);
     this.state = {
       items: [],
-      isLoading: true,
       favorites: [],
+      isLoading: true,
+      onlyFavorites: false,
     };
+
     if (!localStorage.getItem("data")) {
       localStorage.setItem("data", "[]");
     }
@@ -53,6 +55,10 @@ export default class Root extends Component {
     localStorage.setItem("data", JSON.stringify(tempArray));
   };
 
+  handleSwitchFavorites = () => {
+    this.setState({ onlyFavorites: !this.state.onlyFavorites });
+  };
+
   componentDidMount() {
     if (localStorage.getItem("data") !== "null") {
       let data = JSON.parse(localStorage.getItem("data"));
@@ -76,6 +82,8 @@ export default class Root extends Component {
             handler={this.handleClick}
             handleFavClick={this.handleFavClick}
             favorites={this.state.favorites}
+            handleSwitchFavorites={this.handleSwitchFavorites}
+            onlyFavorites={this.state.onlyFavorites}
           />
         </div>
       </div>

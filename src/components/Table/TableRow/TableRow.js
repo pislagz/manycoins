@@ -9,15 +9,20 @@ import {
   FontSizeBelow770px,
 } from "../../../styles/GlobalStyleSnippets";
 import coinImage from "../../../assets/icons/coin64.ico";
+import { Favorite, NoFavorite } from "../Star/Star";
 
 export function TableRow(props) {
   return props.items.map((item) => {
-    if (props.favorites?.includes(item.id) || true) {
+    if (props.onlyFavorites ? props.favorites.includes(item.id) : true) {
       return (
         <Row key={`${item.rank}-${item.id}`}>
           <Favs>
             <div onClick={() => props.handleFavClick(item.id)}>
-              {!props.favorites?.includes(item.id) ? "♡" : "❤️"}
+              {!props.favorites?.includes(item.id) ? (
+                <NoFavorite />
+              ) : (
+                <Favorite />
+              )}
             </div>
           </Favs>
           <CoinRank>{item.rank}</CoinRank>
@@ -69,18 +74,20 @@ const Row = styled.tr`
 const Favs = styled.td`
   padding-left: 1rem !important;
   div {
-    font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
-    font-size: 1.5rem;
-    color: lightgray;
-
     &:hover {
-      color: red;
+      img {
+        filter: brightness(5000%);
+        -webkit-filter: brightness(5000%);
+        -moz-filter: brightness(5000%);
+        -o-filter: brightness(5000%);
+        -ms-filter: brightness(5000%);
+      }
     }
+  }
 
-    &:active {
-      color: red;
-      text-shadow: 0px 0px 3px red;
-    }
+  &:active {
+    color: red;
+    text-shadow: 0px 0px 3px red;
   }
 `;
 

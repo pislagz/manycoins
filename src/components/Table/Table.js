@@ -14,6 +14,8 @@ export default class Table extends Component {
           refreshRate={this.props.refreshRate}
           getItems={this.props.getItems}
           handler={this.props.handler}
+          handleSwitchFavorites={this.props.handleSwitchFavorites}
+          onlyFavorites={this.props.onlyFavorites}
         />
         <tbody>
           {this.props.isLoading ? (
@@ -23,6 +25,7 @@ export default class Table extends Component {
               items={this.props.items}
               handleFavClick={this.props.handleFavClick}
               favorites={this.props.favorites}
+              onlyFavorites={this.props.onlyFavorites}
             />
           )}
         </tbody>
