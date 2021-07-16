@@ -74,20 +74,16 @@ const Row = styled.tr`
 const Favs = styled.td`
   padding-left: 1rem !important;
   div {
-    &:hover {
-      img {
-        filter: brightness(5000%);
-        -webkit-filter: brightness(5000%);
-        -moz-filter: brightness(5000%);
-        -o-filter: brightness(5000%);
-        -ms-filter: brightness(5000%);
+    svg {
+      &:hover {
+        transform: scale(115%);
+        transition: transform 0.1s;
+      }
+      &:active {
+        transform: scale(80%);
+        transition: transform 0.1s;
       }
     }
-  }
-
-  &:active {
-    color: red;
-    text-shadow: 0px 0px 3px red;
   }
 `;
 

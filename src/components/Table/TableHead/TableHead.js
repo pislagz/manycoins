@@ -137,6 +137,7 @@ export default class TableHead extends Component {
 const TheHead = styled.thead`
   background: #f4f4f4;
   border-bottom: 1px solid #bababa;
+  height: 2.9rem;
 
   tr {
     text-align: right;
@@ -152,9 +153,18 @@ const TitleFavs = styled.th`
   div {
     cursor: pointer;
 
-    img {
+    svg {
       margin: 0.7rem;
       margin-left: 0;
+      height: 1.5rem;
+      &:hover {
+        transform: scale(115%);
+        transition: transform 0.1s;
+      }
+      &:active {
+        transform: scale(80%);
+        transition: transform 0.1s;
+      }
     }
   }
 `;
