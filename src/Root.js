@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import GlobalStyle from "./styles/GlobalStyle";
 import Table from "./components/Table/Table";
 import Logo from "./components/Logo/Logo";
+import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
 
 export default class Root extends Component {
   constructor(props) {
@@ -85,6 +86,11 @@ export default class Root extends Component {
             handleSwitchFavorites={this.handleSwitchFavorites}
             onlyFavorites={this.state.onlyFavorites}
           />
+          {this.state.onlyFavorites && !this.state.favorites.length ? (
+            <NoFavorites handleSwitchFavorites={this.handleSwitchFavorites} />
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     );
