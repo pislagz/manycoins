@@ -88,9 +88,7 @@ export default class Root extends Component {
           />
           {this.state.onlyFavorites && !this.state.favorites.length ? (
             <NoFavorites handleSwitchFavorites={this.handleSwitchFavorites} />
-          ) : (
-            <></>
-          )}
+          ) : null}
         </div>
       </div>
     );

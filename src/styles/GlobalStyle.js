@@ -13,10 +13,6 @@ body{
     margin: 0;
 }
 
-tr:nth-of-type(even) {
-    background-color: #fafafa;
-}
-
 td {
     /* border-right: 1px solid red; */
 }

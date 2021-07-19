@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logoImage from "../../assets/icons/coinM.png";
+import Switch from "./Switch/Switch";
 
 const Logo = () => (
   <Wrapper>
@@ -8,8 +9,23 @@ const Logo = () => (
       <Image src={logoImage} alt={"manycoins logo"}></Image>
       <Text>Manycoins</Text>
     </Link>
+    <Switch />
   </Wrapper>
 );
+
+const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgba(181, 127, 208, 1) 0%,
+    rgba(235, 128, 84, 1) 100%
+  );
+
+  padding: 1rem;
+`;
 
 const Link = styled.a`
   display: flex;
@@ -44,20 +60,6 @@ const Link = styled.a`
       }
     }
   }
-`;
-
-const Wrapper = styled.div`
-  display: flex;
-  /* justify-content: center; */
-  width: 100%;
-  align-items: center;
-  background: linear-gradient(
-    90deg,
-    rgba(181, 127, 208, 1) 0%,
-    rgba(235, 128, 84, 1) 100%
-  );
-
-  padding: 1rem;
 `;
 
 const Image = styled.img`

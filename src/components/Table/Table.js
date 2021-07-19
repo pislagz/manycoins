@@ -63,6 +63,14 @@ const TheTable = styled.table`
   tbody {
     tr {
       border-bottom: 1px solid #dddddd;
+      /* color: white;
+      background: #351c7a; */
+
+      &:nth-of-type(even) {
+        background-color: #fafafa;
+        /* background: #311482; */
+      }
+
       &:hover {
         background: #fbf0ff;
         span:first-of-type {
