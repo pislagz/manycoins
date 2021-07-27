@@ -4,6 +4,11 @@ import Table from "./components/Table/Table";
 import Logo from "./components/Logo/Logo";
 import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
 
+const THEME_STATE = {
+  light: "light",
+  dark: "dark",
+};
+
 export default class Root extends Component {
   constructor(props) {
     super(props);
@@ -12,11 +17,15 @@ export default class Root extends Component {
       favorites: [],
       isLoading: true,
       onlyFavorites: false,
+      theme: THEME_STATE.light,
     };
 
     if (!localStorage.getItem("data")) {
       localStorage.setItem("data", "[]");
     }
+
+    this.isLightThemeEnabled = () =>
+      this.state.sortingState === THEME_STATE.light;
   }
 
   refreshRate = () => 1000 * 15; // means there's an API call every 15 seconds
@@ -43,6 +52,7 @@ export default class Root extends Component {
     }));
   };
 
+  //Adding a coin to favorites
   handleFavClick = (id) => {
     let tempArray = this.state.favorites;
 
@@ -56,8 +66,18 @@ export default class Root extends Component {
     localStorage.setItem("data", JSON.stringify(tempArray));
   };
 
+  //Changing views between list of all coins and a list of favorite coins
   handleSwitchFavorites = () => {
     this.setState({ onlyFavorites: !this.state.onlyFavorites });
+  };
+
+  //Toggle theme
+  handleThemeSwitch = () => {
+    if (this.state.theme === THEME_STATE.light) {
+      this.setState({ theme: THEME_STATE.dark });
+    } else {
+      this.setState({ theme: THEME_STATE.light });
+    }
   };
 
   componentDidMount() {
@@ -69,11 +89,17 @@ export default class Root extends Component {
     }
   }
 
+  componentDidUpdate() {
+    console.log(
+      this.state.theme === "light" ? "Light mode enabled" : "Dark mode enabled"
+    );
+  }
+
   render() {
     return (
       <div className="root">
         <GlobalStyle />
-        <Logo />
+        <Logo handleThemeSwitch={this.handleThemeSwitch} />
         <div className={"table-wrapper"}>
           <Table
             refreshRate={() => this.refreshRate()}

@@ -13,13 +13,16 @@ body{
     margin: 0;
 }
 
-td {
-    /* border-right: 1px solid red; */
-}
-
 .table-wrapper {
     width: 100%;
     overflow-x: scroll;
 }
 
+//dark mode
+
+
+
+td {
+    /* border-right: 1px solid red; */
+}
 `;

@@ -3,13 +3,13 @@ import styled from "styled-components";
 import logoImage from "../../assets/icons/coinM.png";
 import Switch from "./Switch/Switch";
 
-const Logo = () => (
+const Logo = (props) => (
   <Wrapper>
     <Link href="/">
       <Image src={logoImage} alt={"manycoins logo"}></Image>
       <Text>Manycoins</Text>
     </Link>
-    <Switch />
+    <Switch handleThemeSwitch={props.handleThemeSwitch} />
   </Wrapper>
 );
 

@@ -1,11 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 
-const Switch = () => (
+const Switch = (props) => (
   <Toggle>
     {/* <span>🌙</span> */}
-    <input type={"checkbox"} id={"toggle-switch"}></input>
-    <label for={"toggle-switch"}>
+    <input
+      type={"checkbox"}
+      id={"toggle-switch"}
+      onClick={() => props.handleThemeSwitch()}
+    ></input>
+    <label htmlFor={"toggle-switch"}>
       <ScreenReaderText>Toggle Color Scheme</ScreenReaderText>
     </label>
     {/* <span>☀️</span> */}
