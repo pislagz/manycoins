@@ -3,7 +3,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 import Table from "./components/Table/Table";
 import Logo from "./components/Logo/Logo";
 import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
-import { ThemeProvider } from "styled-components";
+// import { ThemeProvider } from "styled-components";
 
 const THEME_STATE = {
   lightTheme: "lightTheme",
@@ -99,26 +99,26 @@ export default class Root extends Component {
   render() {
     return (
       <div className="root">
-        <ThemeProvider theme={THEME_STATE[this.state.theme]}>
-          <GlobalStyle />
-          <Logo handleThemeSwitch={this.handleThemeSwitch} />
-          <div className={"table-wrapper"}>
-            <Table
-              refreshRate={() => this.refreshRate()}
-              getItems={this.getItems}
-              items={this.state.items}
-              isLoading={this.state.isLoading}
-              handler={this.handleClick}
-              handleFavClick={this.handleFavClick}
-              favorites={this.state.favorites}
-              handleSwitchFavorites={this.handleSwitchFavorites}
-              onlyFavorites={this.state.onlyFavorites}
-            />
-            {this.state.onlyFavorites && !this.state.favorites.length ? (
-              <NoFavorites handleSwitchFavorites={this.handleSwitchFavorites} />
-            ) : null}
-          </div>
-        </ThemeProvider>
+        {/* <ThemeProvider theme={THEME_STATE[this.state.theme]}> */}
+        <GlobalStyle />
+        <Logo handleThemeSwitch={this.handleThemeSwitch} />
+        <div className={"table-wrapper"}>
+          <Table
+            refreshRate={() => this.refreshRate()}
+            getItems={this.getItems}
+            items={this.state.items}
+            isLoading={this.state.isLoading}
+            handler={this.handleClick}
+            handleFavClick={this.handleFavClick}
+            favorites={this.state.favorites}
+            handleSwitchFavorites={this.handleSwitchFavorites}
+            onlyFavorites={this.state.onlyFavorites}
+          />
+          {this.state.onlyFavorites && !this.state.favorites.length ? (
+            <NoFavorites handleSwitchFavorites={this.handleSwitchFavorites} />
+          ) : null}
+        </div>
+        {/* </ThemeProvider> */}
       </div>
     );
   }
