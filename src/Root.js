@@ -3,10 +3,11 @@ import GlobalStyle from "./styles/GlobalStyle";
 import Table from "./components/Table/Table";
 import Logo from "./components/Logo/Logo";
 import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
+import { ThemeProvider } from "styled-components";
 
 const THEME_STATE = {
-  light: "light",
-  dark: "dark",
+  lightTheme: "lightTheme",
+  darkTheme: "darkTheme",
 };
 
 export default class Root extends Component {
@@ -17,7 +18,7 @@ export default class Root extends Component {
       favorites: [],
       isLoading: true,
       onlyFavorites: false,
-      theme: THEME_STATE.light,
+      theme: THEME_STATE.lightTheme,
     };
 
     if (!localStorage.getItem("data")) {
@@ -73,10 +74,10 @@ export default class Root extends Component {
 
   //Toggle theme
   handleThemeSwitch = () => {
-    if (this.state.theme === THEME_STATE.light) {
-      this.setState({ theme: THEME_STATE.dark });
+    if (this.state.theme === THEME_STATE.lightTheme) {
+      this.setState({ theme: THEME_STATE.darkTheme });
     } else {
-      this.setState({ theme: THEME_STATE.light });
+      this.setState({ theme: THEME_STATE.lightTheme });
     }
   };
 
@@ -98,24 +99,26 @@ export default class Root extends Component {
   render() {
     return (
       <div className="root">
-        <GlobalStyle />
-        <Logo handleThemeSwitch={this.handleThemeSwitch} />
-        <div className={"table-wrapper"}>
-          <Table
-            refreshRate={() => this.refreshRate()}
-            getItems={this.getItems}
-            items={this.state.items}
-            isLoading={this.state.isLoading}
-            handler={this.handleClick}
-            handleFavClick={this.handleFavClick}
-            favorites={this.state.favorites}
-            handleSwitchFavorites={this.handleSwitchFavorites}
-            onlyFavorites={this.state.onlyFavorites}
-          />
-          {this.state.onlyFavorites && !this.state.favorites.length ? (
-            <NoFavorites handleSwitchFavorites={this.handleSwitchFavorites} />
-          ) : null}
-        </div>
+        <ThemeProvider theme={THEME_STATE[this.state.theme]}>
+          <GlobalStyle />
+          <Logo handleThemeSwitch={this.handleThemeSwitch} />
+          <div className={"table-wrapper"}>
+            <Table
+              refreshRate={() => this.refreshRate()}
+              getItems={this.getItems}
+              items={this.state.items}
+              isLoading={this.state.isLoading}
+              handler={this.handleClick}
+              handleFavClick={this.handleFavClick}
+              favorites={this.state.favorites}
+              handleSwitchFavorites={this.handleSwitchFavorites}
+              onlyFavorites={this.state.onlyFavorites}
+            />
+            {this.state.onlyFavorites && !this.state.favorites.length ? (
+              <NoFavorites handleSwitchFavorites={this.handleSwitchFavorites} />
+            ) : null}
+          </div>
+        </ThemeProvider>
       </div>
     );
   }

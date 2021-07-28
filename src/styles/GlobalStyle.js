@@ -18,10 +18,6 @@ body{
     overflow-x: scroll;
 }
 
-//dark mode
-
-
-
 td {
     /* border-right: 1px solid red; */
 }
