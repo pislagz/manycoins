@@ -18,6 +18,10 @@ body{
     overflow-x: scroll;
 }
 
+.current-page {
+    background: #af83c5;
+}
+
 td {
     /* border-right: 1px solid red; */
 }

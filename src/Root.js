@@ -3,6 +3,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 import Table from "./components/Table/Table";
 import Logo from "./components/Logo/Logo";
 import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
+import Pagination from "./components/Pagination/Pagination";
 // import { ThemeProvider } from "styled-components";
 
 const THEME_STATE = {
@@ -18,6 +19,10 @@ export default class Root extends Component {
       favorites: [],
       isLoading: true,
       onlyFavorites: false,
+      pages: [
+        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+      ],
+      currentPage: 1,
       theme: THEME_STATE.lightTheme,
     };
 
@@ -81,6 +86,11 @@ export default class Root extends Component {
     }
   };
 
+  //Change page
+  changePage = (pageIndex) => {
+    this.setState({ currentPage: pageIndex });
+  };
+
   componentDidMount() {
     if (localStorage.getItem("data") !== "null") {
       let data = JSON.parse(localStorage.getItem("data"));
@@ -92,7 +102,9 @@ export default class Root extends Component {
 
   componentDidUpdate() {
     console.log(
-      this.state.theme === "light" ? "Light mode enabled" : "Dark mode enabled"
+      this.state.theme === "lightTheme"
+        ? "Light mode enabled"
+        : "Dark mode enabled"
     );
   }
 
@@ -113,12 +125,18 @@ export default class Root extends Component {
             favorites={this.state.favorites}
             handleSwitchFavorites={this.handleSwitchFavorites}
             onlyFavorites={this.state.onlyFavorites}
+            currentPage={this.state.currentPage}
           />
           {this.state.onlyFavorites && !this.state.favorites.length ? (
             <NoFavorites handleSwitchFavorites={this.handleSwitchFavorites} />
           ) : null}
         </div>
         {/* </ThemeProvider> */}
+        <Pagination
+          pages={this.state.pages}
+          currentPage={this.state.currentPage}
+          changePage={this.changePage}
+        />
       </div>
     );
   }
