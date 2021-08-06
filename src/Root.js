@@ -36,6 +36,7 @@ export default class Root extends Component {
 
   refreshRate = () => 1000 * 15; // means there's an API call every 15 seconds
 
+  //getItems
   getItems = async (API_LINK, BODY, sortingFunction) => {
     try {
       let response = await (await fetch(API_LINK, BODY)).json();
@@ -88,7 +89,20 @@ export default class Root extends Component {
 
   //Change page
   changePage = (pageIndex) => {
-    this.setState({ currentPage: pageIndex });
+    /*  if given index is lower than minimal possible page
+     *   return minimal possible page, and if it's higher
+     *   than the highest possible, return the highest
+     */
+
+    if (pageIndex < this.state.pages[0]) {
+      this.setState({ currentPage: this.state.pages[0] });
+    } else if (pageIndex > this.state.pages[this.state.pages.length - 1]) {
+      this.setState({
+        currentPage: this.state.pages[this.state.pages.length - 1],
+      });
+    } else {
+      this.setState({ currentPage: pageIndex });
+    }
   };
 
   componentDidMount() {
@@ -115,6 +129,11 @@ export default class Root extends Component {
         <GlobalStyle />
         <Logo handleThemeSwitch={this.handleThemeSwitch} />
         <div className={"table-wrapper"}>
+          <Pagination
+            pages={this.state.pages}
+            currentPage={this.state.currentPage}
+            changePage={this.changePage}
+          />
           <Table
             refreshRate={() => this.refreshRate()}
             getItems={this.getItems}
@@ -132,11 +151,6 @@ export default class Root extends Component {
           ) : null}
         </div>
         {/* </ThemeProvider> */}
-        <Pagination
-          pages={this.state.pages}
-          currentPage={this.state.currentPage}
-          changePage={this.changePage}
-        />
       </div>
     );
   }
