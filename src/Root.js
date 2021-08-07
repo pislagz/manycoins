@@ -22,7 +22,9 @@ export default class Root extends Component {
       pages: [
         1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
       ],
-      currentPage: 1,
+      currentPage: localStorage.getItem("currentPageLocal")
+        ? parseInt(localStorage.getItem("currentPageLocal"))
+        : 1,
       theme: THEME_STATE.lightTheme,
     };
 
@@ -96,13 +98,55 @@ export default class Root extends Component {
 
     if (pageIndex < this.state.pages[0]) {
       this.setState({ currentPage: this.state.pages[0] });
+      localStorage.setItem("currentPageLocal", `${this.state.pages[0]}`);
     } else if (pageIndex > this.state.pages[this.state.pages.length - 1]) {
       this.setState({
         currentPage: this.state.pages[this.state.pages.length - 1],
       });
+      localStorage.setItem(
+        "currentPageLocal",
+        `${this.state.pages[this.state.pages.length - 1]}`
+      );
     } else {
       this.setState({ currentPage: pageIndex });
+      localStorage.setItem("currentPageLocal", `${pageIndex}`);
     }
+  };
+
+  //Pages list to print out
+  printPages = () => {
+    let arrX = [];
+    if (
+      this.state.pages.indexOf(this.state.currentPage - 5) !== -1 &&
+      this.state.pages.indexOf(this.state.currentPage + 4) !== -1
+    ) {
+      arrX = [];
+      arrX.push(this.state.pages[this.state.currentPage - 5]);
+      arrX.push(this.state.pages[this.state.currentPage - 4]);
+      arrX.push(this.state.pages[this.state.currentPage - 3]);
+      arrX.push(this.state.pages[this.state.currentPage - 2]);
+      arrX.push(this.state.pages[this.state.currentPage - 1]);
+      arrX.push(this.state.pages[this.state.currentPage]);
+      arrX.push(this.state.pages[this.state.currentPage + 1]);
+      arrX.push(this.state.pages[this.state.currentPage + 2]);
+      arrX.push(this.state.pages[this.state.currentPage + 3]);
+      arrX.push(this.state.pages[this.state.currentPage + 4]);
+    }
+
+    if (
+      this.state.pages.indexOf(this.state.currentPage - 5) === -1 &&
+      this.state.pages.indexOf(this.state.currentPage + 4) !== -1
+    ) {
+      arrX = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    }
+
+    if (
+      this.state.currentPage >= this.state.pages[this.state.pages.length - 5]
+    ) {
+      arrX = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
+    }
+
+    return arrX;
   };
 
   componentDidMount() {
@@ -129,11 +173,15 @@ export default class Root extends Component {
         <GlobalStyle />
         <Logo handleThemeSwitch={this.handleThemeSwitch} />
         <div className={"table-wrapper"}>
-          <Pagination
-            pages={this.state.pages}
-            currentPage={this.state.currentPage}
-            changePage={this.changePage}
-          />
+          {!this.state.onlyFavorites ? (
+            <Pagination
+              pages={this.state.pages}
+              currentPage={this.state.currentPage}
+              changePage={this.changePage}
+              printPages={this.printPages}
+            />
+          ) : null}
+
           <Table
             refreshRate={() => this.refreshRate()}
             getItems={this.getItems}

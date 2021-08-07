@@ -8,11 +8,11 @@ const Pagination = (props) => (
       <Button onClick={() => props.changePage(props.currentPage - 1)}>
         Previous
       </Button>
-      {props.pages.map((page, index) => (
+      {props.printPages().map((page, index) => (
         <Button
           className={props.currentPage === page ? "current-page" : ""}
           key={index}
-          onClick={() => props.changePage(index + 1)}
+          onClick={() => props.changePage(page)}
         >
           {page}
         </Button>

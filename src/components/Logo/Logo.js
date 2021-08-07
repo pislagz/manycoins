@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import logoImage from "../../assets/icons/coinM.png";
-import Switch from "./Switch/Switch";
+// import Switch from "./Switch/Switch";
 
 const Logo = (props) => (
   <Wrapper>
@@ -9,7 +9,7 @@ const Logo = (props) => (
       <Image src={logoImage} alt={"manycoins logo"}></Image>
       <Text>Manycoins</Text>
     </Link>
-    <Switch handleThemeSwitch={props.handleThemeSwitch} />
+    {/* <Switch handleThemeSwitch={props.handleThemeSwitch} /> */}
   </Wrapper>
 );
 
