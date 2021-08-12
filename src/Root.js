@@ -3,7 +3,7 @@ import GlobalStyle from "./styles/GlobalStyle";
 import Table from "./components/Table/Table";
 import Logo from "./components/Logo/Logo";
 import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
-import Pagination from "./components/Pagination/Pagination";
+import { Pagination } from "./components/Pagination";
 // import { ThemeProvider } from "styled-components";
 
 const THEME_STATE = {
@@ -91,7 +91,8 @@ export default class Root extends Component {
 
   //Change page
   changePage = (pageIndex) => {
-    /*  if given index is lower than minimal possible page
+    /*
+     *   if given index is lower than minimal possible page
      *   return minimal possible page, and if it's higher
      *   than the highest possible, return the highest
      */
@@ -111,6 +112,8 @@ export default class Root extends Component {
       this.setState({ currentPage: pageIndex });
       localStorage.setItem("currentPageLocal", `${pageIndex}`);
     }
+
+    
   };
 
   //Pages list to print out
