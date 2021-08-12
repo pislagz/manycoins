@@ -7,10 +7,10 @@ import { Wrapper, Buttons, Button } from "./styled.js";
 export const Pagination = (props) => {
   const { data } = useQuery(GET_COINS, {
     variables: {
-      sort: "name",
-      before: "before",
-      last: 10,
-      direction: "ASC",
+      sortBy: "rank",
+      after: null,
+      before: null,
+      dir: "DESC",
     },
   });
 
