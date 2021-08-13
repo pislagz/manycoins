@@ -17,6 +17,8 @@ export default class Table extends Component {
           handleSwitchFavorites={this.props.handleSwitchFavorites}
           onlyFavorites={this.props.onlyFavorites}
           currentPage={this.props.currentPage}
+          switchSortingState={this.props.switchSortingState}
+          switchSortingDir={this.props.switchSortingDir}
         />
         <tbody>
           {this.props.isLoading ? (

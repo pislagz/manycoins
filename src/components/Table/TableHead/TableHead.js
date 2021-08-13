@@ -1,13 +1,12 @@
 import React, { Component } from "react";
+import { Favorite, NoFavorite } from "../Star/Star";
 import styled from "styled-components";
 import {
   Collapsing,
   CustomBelow770px,
 } from "../../../styles/GlobalStyleSnippets";
-import { CONFIG } from "../../../utils/sortingFunctions";
-import { Favorite, NoFavorite } from "../Star/Star";
 
-const SORTING_STATE = {
+const SORTING_DIR = {
   descending: "descending",
   ascending: "ascending",
 };
@@ -16,53 +15,23 @@ export default class TableHead extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortingState: SORTING_STATE.ascending,
+      sortingState: SORTING_DIR.ascending,
       currentlySortedColumn: "rank",
     };
     this.isDescending = () =>
-      this.state.sortingState === SORTING_STATE.descending;
+      this.state.sortingState === SORTING_DIR.descending;
   }
 
-  // componentDidMount() {
-  //   let API_LINK = `https://api.coincap.io/v2/assets/`; //?limit=100 (max 2000)
-  //   const BODY = () => {
-  //     return {
-  //       method: "GET",
-  //     };
-  //   };
-
-  //   // // Include data asap:
-  //   // this.props.getItems(API_LINK, BODY);
-
-  //   // Start refreshing data:
-  //   const loop = () => {
-  //     const type = this.state.currentlySortedColumn;
-  //     const sortingFunction = () => {
-  //       if (type !== "") {
-  //         return this.isDescending()
-  //           ? CONFIG[type].descendingFunction
-  //           : CONFIG[type].ascendingFunction;
-  //       } else {
-  //         return false;
-  //       }
-  //     };
-  //     this.props.getItems(API_LINK, BODY, sortingFunction());
-  //     setTimeout(loop, this.props.refreshRate());
-  //   };
-
-  //   setTimeout(loop, this.props.refreshRate());
-  // }
-
   handleClick = (type) => {
-    this.props.handler(
-      this.isDescending()
-        ? CONFIG[type].ascendingFunction
-        : CONFIG[type].descendingFunction
+    this.props.switchSortingState(type);
+    this.props.switchSortingDir(
+      this.isDescending() ? "ascending" : "descending"
     );
+
     this.setState({
       sortingState: this.isDescending()
-        ? SORTING_STATE.ascending
-        : SORTING_STATE.descending,
+        ? SORTING_DIR.ascending
+        : SORTING_DIR.descending,
 
       currentlySortedColumn: type,
     });

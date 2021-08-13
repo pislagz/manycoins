@@ -21,12 +21,18 @@ const SORTING_STATE = {
   marketCap: "marketCapUsd",
 };
 
+const SORTING_DIR = {
+  ascending: "ASC",
+  descending: "DESC",
+};
+
 export const Root = () => {
   const [items, setItems] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
-  const [sortBy] = useState(SORTING_STATE.rank);
+  const [sortBy, setSortBy] = useState(SORTING_STATE.rank);
+  const [sortDir, setSortDir] = useState(SORTING_DIR.ascending);
   const [pages] = useState([
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]);
@@ -39,7 +45,7 @@ export const Root = () => {
 
   const { data, loading, error } = useQuery(GET_COINS, {
     variables: {
-      dir: "ASC",
+      dir: sortDir,
       sortBy: sortBy,
       before: null,
       after: null,
@@ -91,6 +97,16 @@ export const Root = () => {
   //Changing views between list of all coins and a list of favorite coins
   const handleSwitchFavorites = () => {
     setOnlyFavorites((prevState) => !prevState);
+  };
+
+  //Switching sorting state
+  const switchSortingState = (sortBy) => {
+    setSortBy(SORTING_STATE[sortBy]);
+  };
+
+  //Switching sorting direction
+  const switchSortingDir = (sortAs) => {
+    setSortDir(SORTING_DIR[sortAs]);
   };
 
   //Toggle theme
@@ -190,6 +206,8 @@ export const Root = () => {
           handleSwitchFavorites={handleSwitchFavorites}
           onlyFavorites={onlyFavorites}
           currentPage={currentPage}
+          switchSortingState={switchSortingState}
+          switchSortingDir={switchSortingDir}
         />
         {onlyFavorites && !favorites.length ? (
           <NoFavorites handleSwitchFavorites={handleSwitchFavorites} />
