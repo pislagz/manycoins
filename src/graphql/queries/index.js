@@ -1,11 +1,12 @@
 import { gql } from "@apollo/client";
 
 export const GET_COINS = gql`
-  query getCoins(
+  query favCoins(
     $dir: SortDirection
     $sortBy: AssetSortInput
     $before: String
     $after: String
+    $where: AssetWhereInput
   ) {
     object: assets(
       first: 50
@@ -13,6 +14,7 @@ export const GET_COINS = gql`
       sort: $sortBy
       before: $before
       after: $after
+      where: $where
     ) {
       loadedCoins: totalCount
       pageInfo {
@@ -39,6 +41,4 @@ export const GET_COINS = gql`
     changePercent24Hr
     marketCapUsd
   }
-
-  # rank name price ch24 marketcap
 `;

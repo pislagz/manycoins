@@ -1,9 +1,11 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import GlobalStyle from "./styles/GlobalStyle";
 import Table from "./components/Table/Table";
 import Logo from "./components/Logo/Logo";
 import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
 import { Pagination } from "./components/Pagination";
+import { GET_COINS } from "graphql/queries";
+import { useQuery } from "@apollo/client";
 // import { ThemeProvider } from "styled-components";
 
 const THEME_STATE = {
@@ -11,198 +13,189 @@ const THEME_STATE = {
   darkTheme: "darkTheme",
 };
 
-export default class Root extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      items: [],
-      favorites: [],
-      isLoading: true,
-      onlyFavorites: false,
-      pages: [
-        1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-      ],
-      currentPage: localStorage.getItem("currentPageLocal")
-        ? parseInt(localStorage.getItem("currentPageLocal"))
-        : 1,
-      theme: THEME_STATE.lightTheme,
-    };
+const SORTING_STATE = {
+  rank: "rank",
+  name: "name",
+  price: "priceUsd",
+  change24: "changePercent24Hr",
+  marketCap: "marketCapUsd",
+};
 
-    if (!localStorage.getItem("data")) {
-      localStorage.setItem("data", "[]");
+export const Root = () => {
+  const [items, setItems] = useState([]);
+  const [favorites, setFavorites] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [onlyFavorites, setOnlyFavorites] = useState(false);
+  const [sortBy] = useState(SORTING_STATE.rank);
+  const [pages] = useState([
+    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+  ]);
+  const [currentPage, setCurrentPage] = useState(
+    localStorage.getItem("currentPageLocal")
+      ? parseInt(localStorage.getItem("currentPageLocal"))
+      : 1
+  );
+  const [theme, setTheme] = useState(THEME_STATE.lightTheme);
+
+  const { data, loading, error } = useQuery(GET_COINS, {
+    variables: {
+      dir: "ASC",
+      sortBy: sortBy,
+      before: null,
+      after: null,
+      where: null, //{"id_in": ["bitcoin","xrp"]}
+    },
+  });
+
+  useEffect(() => {
+    console.log(`graphql-coins:`);
+    console.log(data);
+
+    if (loading) {
+      console.log(`fetching graphql data...`);
     }
 
-    this.isLightThemeEnabled = () =>
-      this.state.sortingState === THEME_STATE.light;
-  }
-
-  refreshRate = () => 1000 * 15; // means there's an API call every 15 seconds
-
-  //getItems
-  getItems = async (API_LINK, BODY, sortingFunction) => {
-    try {
-      let response = await (await fetch(API_LINK, BODY)).json();
-
-      console.log(response);
-
-      this.setState({
-        items: sortingFunction ? sortingFunction(response.data) : response.data,
-        isLoading: false,
-      });
-    } catch (err) {
-      console.log(err);
+    if (!loading) {
+      setIsLoading(false);
     }
-  };
+
+    if (error) {
+      console.log(`Uh oh! ${error}! :(`);
+    }
+
+    if (!loading && !error) {
+      setItems(data.object.coinsArray.map((e) => e.coin));
+    }
+  }, [data, loading, error]);
+
+  const refreshRate = () => 1000 * 15; // means there's an API call every 15 seconds
 
   //Sorting
-  handleClick = (sortingFunction) => {
-    this.setState((prevState) => ({
-      items: sortingFunction(prevState.items),
-    }));
+  const handleClick = (sortingFunction) => {
+    setItems((prevState) => sortingFunction(prevState.items));
   };
 
   //Adding a coin to favorites
-  handleFavClick = (id) => {
-    let tempArray = this.state.favorites;
+  const handleFavClick = (id) => {
+    let tempArray = favorites;
 
     if (tempArray?.includes(id)) {
       tempArray?.splice(tempArray.indexOf(id), 1);
     } else {
       tempArray?.push(id);
     }
-    this.setState({ favorites: tempArray });
-
+    setFavorites(tempArray);
     localStorage.setItem("data", JSON.stringify(tempArray));
   };
 
   //Changing views between list of all coins and a list of favorite coins
-  handleSwitchFavorites = () => {
-    this.setState({ onlyFavorites: !this.state.onlyFavorites });
+  const handleSwitchFavorites = () => {
+    setOnlyFavorites((prevState) => !prevState);
   };
 
   //Toggle theme
-  handleThemeSwitch = () => {
-    if (this.state.theme === THEME_STATE.lightTheme) {
-      this.setState({ theme: THEME_STATE.darkTheme });
+  const handleThemeSwitch = () => {
+    if (theme === THEME_STATE.lightTheme) {
+      setTheme(THEME_STATE.darkTheme);
+      console.log(`Dark theme enabled.`);
     } else {
-      this.setState({ theme: THEME_STATE.lightTheme });
+      setTheme(THEME_STATE.lightTheme);
+      console.log(`Light theme enabled.`);
     }
   };
 
   //Change page
-  changePage = (pageIndex) => {
+  const changePage = (pageIndex) => {
     /*
      *   if given index is lower than minimal possible page
      *   return minimal possible page, and if it's higher
      *   than the highest possible, return the highest
      */
 
-    if (pageIndex < this.state.pages[0]) {
-      this.setState({ currentPage: this.state.pages[0] });
-      localStorage.setItem("currentPageLocal", `${this.state.pages[0]}`);
-    } else if (pageIndex > this.state.pages[this.state.pages.length - 1]) {
-      this.setState({
-        currentPage: this.state.pages[this.state.pages.length - 1],
-      });
-      localStorage.setItem(
-        "currentPageLocal",
-        `${this.state.pages[this.state.pages.length - 1]}`
-      );
+    if (pageIndex < pages[0]) {
+      setCurrentPage(pages[0]);
+      localStorage.setItem("currentPageLocal", `${pages[0]}`);
+    } else if (pageIndex > pages[pages.length - 1]) {
+      setCurrentPage(pages[pages.length - 1]);
+      localStorage.setItem("currentPageLocal", `${pages[pages.length - 1]}`);
     } else {
-      this.setState({ currentPage: pageIndex });
+      setCurrentPage(pageIndex);
       localStorage.setItem("currentPageLocal", `${pageIndex}`);
     }
-
-    
   };
 
   //Pages list to print out
-  printPages = () => {
+  const printPages = () => {
     let arrX = [];
     if (
-      this.state.pages.indexOf(this.state.currentPage - 5) !== -1 &&
-      this.state.pages.indexOf(this.state.currentPage + 4) !== -1
+      pages.indexOf(currentPage - 5) !== -1 &&
+      pages.indexOf(currentPage + 4) !== -1
     ) {
       arrX = [];
-      arrX.push(this.state.pages[this.state.currentPage - 5]);
-      arrX.push(this.state.pages[this.state.currentPage - 4]);
-      arrX.push(this.state.pages[this.state.currentPage - 3]);
-      arrX.push(this.state.pages[this.state.currentPage - 2]);
-      arrX.push(this.state.pages[this.state.currentPage - 1]);
-      arrX.push(this.state.pages[this.state.currentPage]);
-      arrX.push(this.state.pages[this.state.currentPage + 1]);
-      arrX.push(this.state.pages[this.state.currentPage + 2]);
-      arrX.push(this.state.pages[this.state.currentPage + 3]);
-      arrX.push(this.state.pages[this.state.currentPage + 4]);
+      arrX.push(pages[currentPage - 5]);
+      arrX.push(pages[currentPage - 4]);
+      arrX.push(pages[currentPage - 3]);
+      arrX.push(pages[currentPage - 2]);
+      arrX.push(pages[currentPage - 1]);
+      arrX.push(pages[currentPage]);
+      arrX.push(pages[currentPage + 1]);
+      arrX.push(pages[currentPage + 2]);
+      arrX.push(pages[currentPage + 3]);
+      arrX.push(pages[currentPage + 4]);
     }
 
     if (
-      this.state.pages.indexOf(this.state.currentPage - 5) === -1 &&
-      this.state.pages.indexOf(this.state.currentPage + 4) !== -1
+      pages.indexOf(currentPage - 5) === -1 &&
+      pages.indexOf(currentPage + 4) !== -1
     ) {
       arrX = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     }
 
-    if (
-      this.state.currentPage >= this.state.pages[this.state.pages.length - 5]
-    ) {
+    if (currentPage >= pages[pages.length - 5]) {
       arrX = [11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
     }
 
     return arrX;
   };
 
-  componentDidMount() {
+  useEffect(() => {
     if (localStorage.getItem("data") !== "null") {
       let data = JSON.parse(localStorage.getItem("data"));
-      this.setState({ favorites: data });
+      setFavorites(data);
     } else {
-      this.setState({ favorites: [] });
+      setFavorites([]);
     }
-  }
+  }, []);
 
-  componentDidUpdate() {
-    console.log(
-      this.state.theme === "lightTheme"
-        ? "Light mode enabled"
-        : "Dark mode enabled"
-    );
-  }
+  return (
+    <div className="root">
+      {/* <ThemeProvider theme={THEME_STATE[theme]}> */}
+      <GlobalStyle />
+      <Logo handleThemeSwitch={handleThemeSwitch} />
+      <div className={"table-wrapper"}>
+        <Pagination
+          pages={pages}
+          currentPage={currentPage}
+          changePage={changePage}
+          printPages={printPages}
+        />
 
-  render() {
-    return (
-      <div className="root">
-        {/* <ThemeProvider theme={THEME_STATE[this.state.theme]}> */}
-        <GlobalStyle />
-        <Logo handleThemeSwitch={this.handleThemeSwitch} />
-        <div className={"table-wrapper"}>
-          {!this.state.onlyFavorites ? (
-            <Pagination
-              pages={this.state.pages}
-              currentPage={this.state.currentPage}
-              changePage={this.changePage}
-              printPages={this.printPages}
-            />
-          ) : null}
-
-          <Table
-            refreshRate={() => this.refreshRate()}
-            getItems={this.getItems}
-            items={this.state.items}
-            isLoading={this.state.isLoading}
-            handler={this.handleClick}
-            handleFavClick={this.handleFavClick}
-            favorites={this.state.favorites}
-            handleSwitchFavorites={this.handleSwitchFavorites}
-            onlyFavorites={this.state.onlyFavorites}
-            currentPage={this.state.currentPage}
-          />
-          {this.state.onlyFavorites && !this.state.favorites.length ? (
-            <NoFavorites handleSwitchFavorites={this.handleSwitchFavorites} />
-          ) : null}
-        </div>
-        {/* </ThemeProvider> */}
+        <Table
+          refreshRate={() => refreshRate()}
+          items={items}
+          isLoading={isLoading}
+          handler={handleClick}
+          handleFavClick={handleFavClick}
+          favorites={favorites}
+          handleSwitchFavorites={handleSwitchFavorites}
+          onlyFavorites={onlyFavorites}
+          currentPage={currentPage}
+        />
+        {onlyFavorites && !favorites.length ? (
+          <NoFavorites handleSwitchFavorites={handleSwitchFavorites} />
+        ) : null}
       </div>
-    );
-  }
-}
+      {/* </ThemeProvider> */}
+    </div>
+  );
+};

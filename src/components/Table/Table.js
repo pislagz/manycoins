@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TableHead from "./TableHead/TableHead";
 import Columns from "./Columns/Columns";
 import { TableLoading } from "./TableLoading/TableLoading";
-import { TableRow } from "./TableRow/TableRow";
+import { TableRow } from "./TableRow";
 
 export default class Table extends Component {
   render() {

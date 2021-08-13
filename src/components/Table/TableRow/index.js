@@ -1,13 +1,19 @@
 import React from "react";
-import styled from "styled-components";
-import { MONEY_FORMAT } from "../../../utils/utilityFunctions";
 import {
-  Collapsing,
-  CollapsingIcon,
-  CustomBelow770px,
-  Expanding,
-  FontSizeBelow770px,
-} from "../../../styles/GlobalStyleSnippets";
+  Row,
+  Favs,
+  CoinRank,
+  CoinName,
+  CoinValue,
+  Coin24Rate,
+  MarketCap,
+  ItemIcon,
+  ItemName,
+  SymbolWrapper,
+  ItemSymbol,
+  ItemNameWrapper,
+} from "./styled.js";
+import { MONEY_FORMAT } from "../../../utils/utilityFunctions";
 import coinImage from "../../../assets/icons/coin64.ico";
 import { Favorite, NoFavorite } from "../Star/Star";
 
@@ -66,100 +72,3 @@ export function TableRow(props) {
     }
   });
 }
-
-const Row = styled.tr`
-  cursor: pointer;
-`;
-
-const Favs = styled.td`
-  padding-left: 1rem !important;
-  div {
-    svg {
-      &:hover {
-        transform: scale(115%);
-        transition: transform 0.1s;
-      }
-      &:active {
-        transform: scale(80%);
-        transition: transform 0.1s;
-      }
-    }
-  }
-`;
-
-const CoinRank = styled.td`
-  ${Collapsing}
-  text-align: center;
-  padding-left: 0 !important;
-`;
-
-const CoinName = styled.td`
-  text-align: center;
-  display: flex;
-`;
-
-const CoinValue = styled.td`
-  ${FontSizeBelow770px(0.9)}
-  font-size: 1rem;
-  text-align: right;
-`;
-const Coin24Rate = styled.td`
-  ${FontSizeBelow770px(0.9)}
-  font-size: 1rem;
-  text-align: right;
-  ${CustomBelow770px("text-align: center;")}
-`;
-const MarketCap = styled.td`
-  ${Collapsing}
-  text-align: center;
-`;
-
-const ItemIcon = styled.img`
-  ${CollapsingIcon}
-  align-self: center;
-  height: 1.8rem;
-  width: 1.8rem;
-  margin-right: 1rem;
-`;
-
-const ItemName = styled.span`
-  ${FontSizeBelow770px(0.8)}
-  font-size: 1.1rem;
-`;
-
-const SymbolWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  p {
-    ${Expanding};
-    margin: 0 0 0 0.5rem;
-    font-size: 1rem;
-    font-weight: 300;
-    font-style: italic;
-    background: #fee8ff;
-    border-radius: 9999px;
-    padding: 0.2rem 0.5rem;
-  }
-`;
-
-const ItemSymbol = styled.span`
-  ${FontSizeBelow770px(0.9)}
-  font-size: 1rem;
-  font-weight: 300;
-  font-style: italic;
-`;
-
-const ItemNameWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  span {
-    text-align: left;
-  }
-  &:hover {
-    span {
-      text-decoration: underline;
-    }
-  }
-`;

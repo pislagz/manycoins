@@ -1,24 +1,7 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
-import { useEffect } from "react";
-import { GET_COINS } from "graphql/queries";
 import { Wrapper, Buttons, Button } from "./styled.js";
 
 export const Pagination = (props) => {
-  const { data } = useQuery(GET_COINS, {
-    variables: {
-      sortBy: "rank",
-      after: null,
-      before: null,
-      dir: "DESC",
-    },
-  });
-
-  useEffect(() => {
-    console.log("graphql-coins: ");
-    console.log(data);
-  }, [data]);
-
   return (
     <Wrapper>
       <Buttons>

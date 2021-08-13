@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Root from "./Root";
+import { Root } from "./Root";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "../src/graphql/apollo";
 

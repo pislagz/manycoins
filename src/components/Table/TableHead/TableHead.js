@@ -23,37 +23,35 @@ export default class TableHead extends Component {
       this.state.sortingState === SORTING_STATE.descending;
   }
 
-  componentDidMount() {
-    let API_LINK = `https://api.coincap.io/v2/assets//?limit=50&offset=${
-      this.props.currentPage * 50 - 50
-    }`; //?limit=100 (max 2000)
-    const BODY = () => {
-      return {
-        method: "GET",
-      };
-    };
+  // componentDidMount() {
+  //   let API_LINK = `https://api.coincap.io/v2/assets/`; //?limit=100 (max 2000)
+  //   const BODY = () => {
+  //     return {
+  //       method: "GET",
+  //     };
+  //   };
 
-    // Include data asap:
-    this.props.getItems(API_LINK, BODY);
+  //   // // Include data asap:
+  //   // this.props.getItems(API_LINK, BODY);
 
-    // Start refreshing data:
-    const loop = () => {
-      const type = this.state.currentlySortedColumn;
-      const sortingFunction = () => {
-        if (type !== "") {
-          return this.isDescending()
-            ? CONFIG[type].descendingFunction
-            : CONFIG[type].ascendingFunction;
-        } else {
-          return false;
-        }
-      };
-      this.props.getItems(API_LINK, BODY, sortingFunction());
-      setTimeout(loop, this.props.refreshRate());
-    };
+  //   // Start refreshing data:
+  //   const loop = () => {
+  //     const type = this.state.currentlySortedColumn;
+  //     const sortingFunction = () => {
+  //       if (type !== "") {
+  //         return this.isDescending()
+  //           ? CONFIG[type].descendingFunction
+  //           : CONFIG[type].ascendingFunction;
+  //       } else {
+  //         return false;
+  //       }
+  //     };
+  //     this.props.getItems(API_LINK, BODY, sortingFunction());
+  //     setTimeout(loop, this.props.refreshRate());
+  //   };
 
-    setTimeout(loop, this.props.refreshRate());
-  }
+  //   setTimeout(loop, this.props.refreshRate());
+  // }
 
   handleClick = (type) => {
     this.props.handler(
