@@ -81,7 +81,7 @@ export const Root = () => {
     setItems((prevState) => sortingFunction(prevState.items));
   };
 
-  //Adding a coin to favorites
+  //Adding a coin to favorites (updating state and localStorage object)
   const handleFavClick = (id) => {
     let tempArray = favorites;
 
