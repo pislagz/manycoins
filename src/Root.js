@@ -1,38 +1,31 @@
 import React, { useEffect, useState } from "react";
 import GlobalStyle from "./styles/GlobalStyle";
-import Table from "./components/Table/Table";
+import Table from "./components/Table";
 import Logo from "./components/Logo/Logo";
 import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
 import { Pagination } from "./components/Pagination";
 import { GET_COINS } from "graphql/queries";
 import { useQuery } from "@apollo/client";
+import { useFavorites } from "Hooks/useFavorites";
 // import { ThemeProvider } from "styled-components";
-
-const THEME_STATE = {
-  lightTheme: "lightTheme",
-  darkTheme: "darkTheme",
-};
-
-const SORTING_STATE = {
-  rank: "rank",
-  name: "name",
-  price: "priceUsd",
-  change24: "changePercent24Hr",
-  marketCap: "marketCapUsd",
-};
-
-const SORTING_DIR = {
-  ascending: "ASC",
-  descending: "DESC",
-};
+import { useSort } from "Hooks/useSort";
+import { THEME_STATE } from "constants/sorting";
+import { useObserver } from "Hooks/useObserver";
 
 export const Root = () => {
   const [items, setItems] = useState([]);
-  const [favorites, setFavorites] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
-  const [sortBy, setSortBy] = useState(SORTING_STATE.rank);
-  const [sortDir, setSortDir] = useState(SORTING_DIR.ascending);
+
+  const { sortBy, sortDir, switchSortingState, switchSortingDir } = useSort();
+
+  //Adding a coin to favorites (updating state and localStorage object)
+  const [favorites, handleFavClick] = useFavorites(setItems);
+
+  useEffect(() => {
+    console.log(favorites);
+  }, [favorites]);
+
   const [pages] = useState([
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
   ]);
@@ -53,26 +46,7 @@ export const Root = () => {
     },
   });
 
-  useEffect(() => {
-    console.log(`graphql-coins:`);
-    console.log(data);
-
-    if (loading) {
-      console.log(`fetching graphql data...`);
-    }
-
-    if (!loading) {
-      setIsLoading(false);
-    }
-
-    if (error) {
-      console.log(`Uh oh! ${error}! :(`);
-    }
-
-    if (!loading && !error) {
-      setItems(data.object.coinsArray.map((e) => e.coin));
-    }
-  }, [data, loading, error]);
+  useObserver(data, loading, error, setIsLoading, setItems);
 
   const refreshRate = () => 1000 * 15; // means there's an API call every 15 seconds
 
@@ -81,32 +55,9 @@ export const Root = () => {
     setItems((prevState) => sortingFunction(prevState.items));
   };
 
-  //Adding a coin to favorites (updating state and localStorage object)
-  const handleFavClick = (id) => {
-    let tempArray = favorites;
-
-    if (tempArray?.includes(id)) {
-      tempArray?.splice(tempArray.indexOf(id), 1);
-    } else {
-      tempArray?.push(id);
-    }
-    setFavorites(tempArray);
-    localStorage.setItem("data", JSON.stringify(tempArray));
-  };
-
   //Changing views between list of all coins and a list of favorite coins
   const handleSwitchFavorites = () => {
     setOnlyFavorites((prevState) => !prevState);
-  };
-
-  //Switching sorting state
-  const switchSortingState = (sortBy) => {
-    setSortBy(SORTING_STATE[sortBy]);
-  };
-
-  //Switching sorting direction
-  const switchSortingDir = (sortAs) => {
-    setSortDir(SORTING_DIR[sortAs]);
   };
 
   //Toggle theme
@@ -174,14 +125,17 @@ export const Root = () => {
     return arrX;
   };
 
-  useEffect(() => {
-    if (localStorage.getItem("data") !== "null") {
-      let data = JSON.parse(localStorage.getItem("data"));
-      setFavorites(data);
-    } else {
-      setFavorites([]);
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (
+  //     localStorage.getItem("data") !== "null" &&
+  //     localStorage.getItem("data") !== "undefined"
+  //   ) {
+  //     let data = JSON.parse(localStorage.getItem("data"));
+  //     setFavorites(data);
+  //   } else {
+  //     setFavorites([]);
+  //   }
+  // }, []);
 
   return (
     <div className="root">
@@ -195,7 +149,6 @@ export const Root = () => {
           changePage={changePage}
           printPages={printPages}
         />
-
         <Table
           refreshRate={() => refreshRate()}
           items={items}
