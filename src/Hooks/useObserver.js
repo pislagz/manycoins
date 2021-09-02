@@ -20,5 +20,5 @@ export const useObserver = (data, loading, error, setIsLoading, setItems) => {
     if (!loading && !error) {
       setItems(data.object.coinsArray.map((e) => e.coin));
     }
-  }, [data, loading, error]);
+  }, [data, loading, error, setIsLoading, setItems]);
 };

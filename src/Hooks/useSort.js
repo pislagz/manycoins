@@ -19,6 +19,6 @@ export const useSort = () => {
     sortBy,
     sortDir,
     switchSortingState,
-    switchSortingDir
+    switchSortingDir,
   };
 };

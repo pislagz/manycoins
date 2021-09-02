@@ -16,9 +16,7 @@ export const Root = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [onlyFavorites, setOnlyFavorites] = useState(false);
-
   const { sortBy, sortDir, switchSortingState, switchSortingDir } = useSort();
-
   //Adding a coin to favorites (updating state and localStorage object)
   const [favorites, handleFavClick] = useFavorites(setItems);
 
@@ -26,34 +24,26 @@ export const Root = () => {
     console.log(favorites);
   }, [favorites]);
 
-  const [pages] = useState([
-    1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-  ]);
+  const [pages] = useState([...Array(20)].map((e, i) => i + 1)); // [1,2,3 ... 19,20]
   const [currentPage, setCurrentPage] = useState(
     localStorage.getItem("currentPageLocal")
       ? parseInt(localStorage.getItem("currentPageLocal"))
       : 1
   );
   const [theme, setTheme] = useState(THEME_STATE.lightTheme);
-
   const { data, loading, error } = useQuery(GET_COINS, {
     variables: {
       dir: sortDir,
       sortBy: sortBy,
       before: null,
       after: null,
-      where: null, //{"id_in": ["bitcoin","xrp"]}
+      where: onlyFavorites ? { id_in: favorites } : null, //  if onlyFavorites are displayed, change the query to return only favorites
     },
   });
 
   useObserver(data, loading, error, setIsLoading, setItems);
 
   const refreshRate = () => 1000 * 15; // means there's an API call every 15 seconds
-
-  //Sorting
-  const handleClick = (sortingFunction) => {
-    setItems((prevState) => sortingFunction(prevState.items));
-  };
 
   //Changing views between list of all coins and a list of favorite coins
   const handleSwitchFavorites = () => {
@@ -125,18 +115,6 @@ export const Root = () => {
     return arrX;
   };
 
-  // useEffect(() => {
-  //   if (
-  //     localStorage.getItem("data") !== "null" &&
-  //     localStorage.getItem("data") !== "undefined"
-  //   ) {
-  //     let data = JSON.parse(localStorage.getItem("data"));
-  //     setFavorites(data);
-  //   } else {
-  //     setFavorites([]);
-  //   }
-  // }, []);
-
   return (
     <div className="root">
       {/* <ThemeProvider theme={THEME_STATE[theme]}> */}
@@ -153,7 +131,6 @@ export const Root = () => {
           refreshRate={() => refreshRate()}
           items={items}
           isLoading={isLoading}
-          handler={handleClick}
           handleFavClick={handleFavClick}
           favorites={favorites}
           handleSwitchFavorites={handleSwitchFavorites}
