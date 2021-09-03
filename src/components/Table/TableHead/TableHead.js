@@ -116,6 +116,8 @@ const TheHead = styled.thead`
 `;
 
 const TitleFavs = styled.th`
+  border-top-left-radius: 10px;
+  ${CustomBelow770px(`border-top-left-radius: 0;`)}
   padding-left: 1rem !important;
   text-align: center;
   font-size: 1.5rem;
@@ -163,6 +165,9 @@ const Title24Rate = styled.th`
 
 const TitleMarketCap = styled.th`
   ${Collapsing}
+
+  border-top-right-radius: 10px;
+  ${CustomBelow770px(`border-top-right-radius: 0;`)}
   div {
     justify-content: center;
   }
