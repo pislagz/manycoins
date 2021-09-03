@@ -20,7 +20,6 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    max-width: 1127px;
     overflow-x: scroll;
     box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
 }

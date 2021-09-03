@@ -14,6 +14,9 @@ const NoFavorites = (props) => (
 );
 
 const Wrapper = styled.footer`
+  background: white;
+  max-width: 1127px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -74,10 +74,10 @@ export const Root = () => {
           switchSortingState={switchSortingState}
           switchSortingDir={switchSortingDir}
         />
-        {onlyFavorites && !favorites.length ? (
-          <NoFavorites handleSwitchFavorites={handleSwitchFavorites} />
-        ) : null}
       </div>
+      {onlyFavorites && !favorites.length ? (
+        <NoFavorites handleSwitchFavorites={handleSwitchFavorites} />
+      ) : null}
       {onlyFavorites ? null : (
         <ViewMore setCoinsCount={setCoinsCount} coinsCount={coinsCount} />
       )}
