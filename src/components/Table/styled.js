@@ -37,6 +37,11 @@ export const Wrapper = styled.table`
         /* background: #311482; */
       }
 
+      &:nth-of-type(odd) {
+        background-color: white;
+        /* background: #311482; */
+      }
+
       &:hover {
         background: #fbf0ff;
         span:first-of-type {
@@ -59,4 +64,3 @@ export const Wrapper = styled.table`
     }
   }
 `;
-
