@@ -27,13 +27,8 @@ export const CustomBelow770px = (css) => `
 }
 `;
 
-// export const ClickableHeader = `
-//     &:hover {
-//         cursor: pointer;
-//         background: rgba(0, 0, 0, 0.1);
-//         transition: background 0.4s;
-//     }
-//     &:active {
-//         background: rgba(0, 0, 0, 0.2);
-//     }
-// `;
+export const CustomBelowCustom = (width, css) => `
+@media only screen and (max-width: ${+width}px) { 
+    ${css};
+}
+`;

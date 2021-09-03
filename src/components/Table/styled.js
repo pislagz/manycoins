@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CustomBelowCustom } from "styles/GlobalStyleSnippets";
 
 export const Wrapper = styled.table`
   border-collapse: collapse;
@@ -11,6 +12,7 @@ export const Wrapper = styled.table`
     &:nth-of-type(1) {
       padding-left: 0.5rem;
       padding-right: 0.5rem;
+      ${CustomBelowCustom(343, `padding: 0; padding-left: 0.3rem !important;`)}
     }
     &:nth-of-type(2) {
       /* padding: 0; */

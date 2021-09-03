@@ -4,7 +4,6 @@ export function NoFavorite() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1.5rem"
       height="1.5rem"
       viewBox="0 -10 511.987 511"
       fill="#774D96"
@@ -19,7 +18,6 @@ export function Favorite() {
     <svg
       height="1.5rem"
       viewBox="0 -10 511.99143 511"
-      width="1.5rem"
       xmlns="http://www.w3.org/2000/svg"
       fill="#774D96"
     >

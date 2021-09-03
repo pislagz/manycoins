@@ -18,6 +18,7 @@ body{
     margin: 0 auto;
     max-width: 1127px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     overflow-x: scroll;

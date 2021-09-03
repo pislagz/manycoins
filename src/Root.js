@@ -10,6 +10,7 @@ import { useFavorites } from "Hooks/useFavorites";
 import { useSort } from "Hooks/useSort";
 import { THEME_STATE } from "constants/sorting";
 import { useObserver } from "Hooks/useObserver";
+import { Footer } from "components/Footer";
 // import { ThemeProvider } from "styled-components";
 
 export const Root = () => {
@@ -75,12 +76,13 @@ export const Root = () => {
           switchSortingDir={switchSortingDir}
         />
       </div>
-      {onlyFavorites && !favorites.length ? (
-        <NoFavorites handleSwitchFavorites={handleSwitchFavorites} />
-      ) : null}
       {onlyFavorites ? null : (
         <ViewMore setCoinsCount={setCoinsCount} coinsCount={coinsCount} />
       )}
+      {onlyFavorites && !favorites.length ? (
+        <NoFavorites handleSwitchFavorites={handleSwitchFavorites} />
+      ) : null}
+      <Footer />
       {/* </ThemeProvider> */}
     </div>
   );
