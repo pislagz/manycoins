@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import GlobalStyle from "./styles/GlobalStyle";
 import Table from "./components/Table";
-import { Logo } from "./components/Logo";
 import NoFavorites from "./components/Table/NoFavorites/NoFavorites";
+import { Logo } from "components/Logo";
 import { ViewMore } from "components/ViewMore";
 import { GET_COINS } from "graphql/queries";
 import { useQuery } from "@apollo/client";
@@ -11,6 +11,7 @@ import { useSort } from "Hooks/useSort";
 import { THEME_STATE } from "constants/sorting";
 import { useObserver } from "Hooks/useObserver";
 import { Footer } from "components/Footer";
+import { Filler } from "components/Filler";
 // import { ThemeProvider } from "styled-components";
 
 export const Root = () => {
@@ -82,6 +83,13 @@ export const Root = () => {
       {onlyFavorites && !favorites.length ? (
         <NoFavorites handleSwitchFavorites={handleSwitchFavorites} />
       ) : null}
+      {!onlyFavorites ? null : favorites.length ===
+        0 ? null : favorites.length > 5 ? null : (
+        <Filler
+          mockRows={favorites.length !== undefined ? 16 - favorites.length : 16}
+        />
+      )}
+
       <Footer />
       {/* </ThemeProvider> */}
     </div>
