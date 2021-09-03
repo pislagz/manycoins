@@ -1,19 +1,6 @@
-import React from "react";
 import styled from "styled-components";
-import logoImage from "../../assets/icons/coinM.png";
-// import Switch from "./Switch/Switch";
 
-const Logo = (props) => (
-  <Wrapper>
-    <Link href="/">
-      <Image src={logoImage} alt={"manycoins logo"}></Image>
-      <Text>Manycoins</Text>
-    </Link>
-    {/* <Switch handleThemeSwitch={props.handleThemeSwitch} /> */}
-  </Wrapper>
-);
-
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
@@ -27,7 +14,7 @@ const Wrapper = styled.div`
   padding: 1rem;
 `;
 
-const Link = styled.a`
+export const Link = styled.a`
   display: flex;
   align-items: center;
   &:link,
@@ -62,12 +49,12 @@ const Link = styled.a`
   }
 `;
 
-const Image = styled.img`
+export const Image = styled.img`
   width: 3rem;
   height: 3rem;
 `;
 
-const Text = styled.p`
+export const Text = styled.p`
   margin: 0;
   margin-left: 1rem;
   font-size: 2rem;
@@ -75,5 +62,3 @@ const Text = styled.p`
   font-weight: bold;
   color: #fff;
 `;
-
-export default Logo;

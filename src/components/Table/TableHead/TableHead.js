@@ -37,9 +37,9 @@ export default class TableHead extends Component {
     });
   };
 
-  componentDidUpdate() {
-    console.log(this.state);
-  }
+  // componentDidUpdate() {
+  //   console.log(this.state);
+  // }
 
   render() {
     return (

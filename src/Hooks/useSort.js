@@ -4,6 +4,7 @@ import { useState } from "react";
 export const useSort = () => {
   const [sortBy, setSortBy] = useState(SORTING_STATE.rank);
   const [sortDir, setSortDir] = useState(SORTING_DIR.ascending);
+  const [coinsCount, setCoinsCount] = useState(20);
 
   //Switching sorting state
   const switchSortingState = (sortBy) => {
@@ -20,5 +21,7 @@ export const useSort = () => {
     sortDir,
     switchSortingState,
     switchSortingDir,
+    coinsCount,
+    setCoinsCount,
   };
 };

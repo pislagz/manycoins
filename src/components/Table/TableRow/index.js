@@ -21,7 +21,7 @@ export const TableRow = (props) => {
   const { favorites, items, handleFavClick, onlyFavorites } = props;
 
   useEffect(() => {
-    console.log(props);
+    console.log([...favorites]);
   });
 
   return (

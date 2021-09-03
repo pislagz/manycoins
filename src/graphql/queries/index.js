@@ -7,9 +7,10 @@ export const GET_COINS = gql`
     $before: String
     $after: String
     $where: AssetWhereInput
+    $first: Int
   ) {
     object: assets(
-      first: 50
+      first: $first
       direction: $dir
       sort: $sortBy
       before: $before
