@@ -30,6 +30,11 @@ export const Wrapper = styled.footer`
       p {
         margin: 0;
       }
+
+      div {
+        margin: 5px 0;
+      }
+
       a {
         text-decoration: none;
         color: white;

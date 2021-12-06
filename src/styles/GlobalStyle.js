@@ -14,15 +14,17 @@ body{
 }
 
 .table-wrapper {
-    /* width: 100%; */
     margin: 0 auto;
     max-width: 1127px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow-x: scroll;
     box-shadow: 0 30px 50px rgba(0, 0, 0, 0.2);
+
+    @media screen and (min-width: 1235px) {
+        margin-top: 45px;
+    }
 }
 
 .current-page {
@@ -30,14 +32,11 @@ body{
 }
 
 #root {
-    background: linear-gradient(
-    90deg,
-    rgba(181, 127, 208, 0.7) 0%,
-    rgba(235, 128, 84, 0.7) 100%
-    );
-}
+    background: #2b5876;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4e4376, #2b5876);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4e4376, #2b5876); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
-td {
-    /* border-right: 1px solid red; */
+
+
 }
 `;

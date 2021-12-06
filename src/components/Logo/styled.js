@@ -5,11 +5,17 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   align-items: center;
+  background: #2b5876; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #4e4376,
+    #2b5876
+  ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
-    90deg,
-    rgba(181, 127, 208, 1) 0%,
-    rgba(235, 128, 84, 1) 100%
-  );
+    to right,
+    #413862,
+    #244962
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
   padding: 1rem;
 `;
