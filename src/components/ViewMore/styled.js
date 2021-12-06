@@ -10,7 +10,7 @@ export const Wrapper = styled.div`
 
 export const Button = styled.button`
   font-size: 1.5rem;
-  background: #715192;
+  background: #24273a;
   color: white;
   border: none;
   padding: 0.6rem 1.6rem;
@@ -19,14 +19,14 @@ export const Button = styled.button`
   box-shadow: 0 -10px 50px rgba(87, 36, 138, 0.2);
 
   &:hover {
-    background: #663d8f;
+    background: #333752;
     box-shadow: 0 -10px 50px rgba(102, 61, 143, 0.2);
     transform: scale(105%);
     transition: transform 0.1s;
   }
 
   &:active {
-    background: #57248a;
+    background: #13141e;
     box-shadow: 0 -10px 50px rgba(87, 36, 138, 0.2);
     transform: scale(95%);
     transition: transform 0.1s;
