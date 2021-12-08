@@ -1,6 +1,5 @@
 [![MIT License][license-shield]][license-url]
 [![stars][stars-shield]][stars-url]
-[![issues][issues-shield]][issues-url]
 [![React][react-shield]][react-url]
 [![sc][sc-shield]][sc-url]
 [![Crypto][crypto-shield]][crpyto-url]
@@ -8,7 +7,9 @@
 
 <div align="center">
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/pislagz/pislagz/main/assets/manycoins/animated-logo.svg" alt="logo" />
+  <a href="https://manycoins.netlify.app">
+    <img src="https://raw.githubusercontent.com/pislagz/pislagz/main/assets/manycoins/animated-logo.svg" alt="logo" />
+  </a>
 </h1>
 
   <p align="center">
@@ -23,8 +24,9 @@
   </p>
 </div>
 
-![image](https://user-images.githubusercontent.com/77860645/145293584-fec87dd0-8077-4815-bc7f-54bbf39ad5d6.png)
-
+  <a href="https://manycoins.netlify.app">
+    <img src="https://user-images.githubusercontent.com/77860645/145293584-fec87dd0-8077-4815-bc7f-54bbf39ad5d6.png" alt="presentation examples" />
+  </a>
 
 This project relies entirely on [Coincap API 2.0](https://docs.coincap.io).
 
