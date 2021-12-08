@@ -86,7 +86,7 @@ Project Link: [https://github.com/pislagz/manycoins](https://github.com/pislagz/
 [stars-url]: https://github.com/pislagz/manycoins/stargazers
 [issues-shield]: https://img.shields.io/github/issues/pislagz/manycoins.svg?style=for-the-badge
 [issues-url]: https://github.com/pislagz/manycoins/issues
-[license-shield]: https://img.shields.io/github/license/pislagz/manycoins.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/pislagz/manycoins?style=for-the-badge
 [license-url]: https://github.com/pislagz/manycoins/blob/master/LICENSE
 [react-shield]: https://img.shields.io/static/v1?label=&message=React&color=gray&style=for-the-badge&logo=react
 [react-url]: https://reactjs.org
