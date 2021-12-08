@@ -1,3 +1,7 @@
+<h1 align="center">
+  <img src="https://raw.githubusercontent.com/pislagz/pislagz/main/assets/manycoins/animated-logo.svg" alt="logo" />
+</h1>
+
 # Manycoins – a crypto tracker
 
 Manycoins is a simple live-updating table showing crypto prices in real time.
